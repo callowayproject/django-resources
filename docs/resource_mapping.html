@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Resource Mapping &mdash; django-resources 0.1 documentation</title>
+    <title>Creating a Resource &mdash; django-resources 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -33,7 +33,7 @@
 	<p>django-resources 0.1 documentation</p>
 </div>
 <div id="header">
-	<div id="title"><h1>Resource Mapping</h1></div>
+	<div id="title"><h1>Creating a Resource</h1></div>
 	<ul id="headerButtons">
 		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
 		<li id="page_buttons">
@@ -49,9 +49,8 @@
 	<ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
 	<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Resource Mapping</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#attributes">Attributes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-a-resource">Creating a Resource</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Creating a Resource</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#common-attributes">Common Attributes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#specialized-resources">Specialized Resources</a></li>
 </ul>
 </li>
@@ -85,35 +84,47 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="resource-mapping">
-<h1>Resource Mapping<a class="headerlink" href="#resource-mapping" title="Permalink to this headline">¶</a></h1>
-<p>There are attributes for a resource that every object should have. Since these attributes may go by different names in different objects, you may create a mapping for each object.</p>
-<div class="section" id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
+  <div class="section" id="creating-a-resource">
+<span id="id1"></span><h1>Creating a Resource<a class="headerlink" href="#creating-a-resource" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="common-attributes">
+<h2>Common Attributes<a class="headerlink" href="#common-attributes" title="Permalink to this headline">¶</a></h2>
+<p>You convert one of your Django models into a Resource by creating and registering a Resource class. The <tt class="xref py py-class docutils literal"><span class="pre">BaseResource</span></tt> class defines common attributes for a resource. Since these attributes may go by different names in different objects, you will create a custom Resource for each model to extract the information.</p>
+<dl class="docutils" id="resource-type-attr">
 <dt><strong>Resource Type</strong></dt>
 <dd>A brief label for the type of resource, like &#8220;Image&#8221; or &#8220;Multimedia&#8221;. Resource Types do not have to be unique. Different objects with the same Resource Type are grouped together when listing by Resource Type.</dd>
+</dl>
+<dl class="docutils" id="title-attr">
 <dt><strong>Title</strong></dt>
 <dd>The title of the object.</dd>
+</dl>
+<dl class="docutils" id="description-attr">
 <dt><strong>Description</strong></dt>
 <dd>Descriptive text of the object.</dd>
+</dl>
+<dl class="docutils" id="key-image-attr">
 <dt><strong>Key Image</strong></dt>
 <dd>An image for display.</dd>
+</dl>
+<dl class="docutils" id="credit-attr">
 <dt><strong>Credit</strong></dt>
 <dd>Credit line for the object.</dd>
+</dl>
+<dl class="docutils" id="url-attr">
 <dt><strong>URL</strong></dt>
 <dd>The URL for this object.</dd>
+</dl>
+<dl class="docutils" id="citation-attr">
 <dt><strong>Citation</strong></dt>
 <dd>A non-Internet citation of the resource, like a book.</dd>
+</dl>
+<dl class="docutils" id="notes-attr">
 <dt><strong>Notes</strong></dt>
 <dd>Any notes regarding this resource.</dd>
+</dl>
+<dl class="docutils" id="internal-ref-attr">
 <dt><strong>Internal Reference</strong></dt>
 <dd>An arbitrary reference for your internal use.</dd>
 </dl>
-</div>
-<div class="section" id="creating-a-resource">
-<span id="id1"></span><h2>Creating a Resource<a class="headerlink" href="#creating-a-resource" title="Permalink to this headline">¶</a></h2>
-<p>You convert one of your Django models into a Resource by creating and registering a Resource class.</p>
 <p>Django Resources attempts to import <tt class="docutils literal"><span class="pre">resources</span></tt> from every entry in <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt>.</p>
 <p>Here is an example of making an audio resource:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -213,7 +224,7 @@
       <div class="clearer"></div>
     </div>
 	<div id="breadcrumbs">
-		Resource Mapping
+		Creating a Resource
 		</ul>
 	</div>
 	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>

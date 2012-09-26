@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="django-resources 0.1 documentation" href="index.html" />
-    <link rel="next" title="Resource Mapping" href="resource_mapping.html" />
+    <link rel="next" title="Creating a Resource" href="resource_mapping.html" />
     <link rel="prev" title="django-resources v 0.1" href="index.html" /> 
   </head>
   <body>
@@ -38,7 +38,7 @@
 		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
 		<li id="page_buttons">
 			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
-			<div class="headerButton"><a href="resource_mapping.html" title="Resource Mapping" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="resource_mapping.html" title="Creating a Resource" accesskey="N">next</a></div>
 			<div class="headerButton"><a href="index.html" title="django-resources v 0.1" accesskey="P">previous</a></div>
 		</li>
 	</ul>
@@ -50,12 +50,13 @@
 	<ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-a-resource">What is a Resource?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-and-register-a-resource">Create and register a Resource</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#serializing-resources">Serializing Resources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-the-serialized-resources-for-a-model">Getting the serialized resources for a model</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="resource_mapping.html">Resource Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resource_mapping.html">Creating a Resource</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
 </ul>
 
@@ -104,6 +105,11 @@
 </div>
 </li>
 </ol>
+</div>
+<div class="section" id="what-is-a-resource">
+<h2>What is a Resource?<a class="headerlink" href="#what-is-a-resource" title="Permalink to this headline">¶</a></h2>
+<p>You have a bunch of models that store data. You want to relate these other models together, showing them as helpers to each other. Excellent! One problem: they all have differently named fields. One model&#8217;s <tt class="docutils literal"><span class="pre">name</span></tt> is another model&#8217;s <tt class="docutils literal"><span class="pre">title</span></tt>.</p>
+<p>Django Resource provides a wrapper around models to provide a consistent interface. It defaults to several attributes that you can use, augment, or ignore entirely and use ones of your creation. The bottom line is that you don&#8217;t have to make all your apps&#8217; models the same.</p>
 </div>
 <div class="section" id="create-and-register-a-resource">
 <h2>Create and register a Resource<a class="headerlink" href="#create-and-register-a-resource" title="Permalink to this headline">¶</a></h2>

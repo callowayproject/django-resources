@@ -26,6 +26,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="django-resources 0.1 documentation" href="../index.html" />
     <link rel="up" title="Reference" href="index.html" />
+    <link rel="next" title="Model Reference" href="models.html" />
     <link rel="prev" title="Reference" href="index.html" /> 
   </head>
   <body>
@@ -38,6 +39,7 @@
 		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
 		<li id="page_buttons">
 			<div class="headerButton"><a href="../genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="models.html" title="Model Reference" accesskey="N">next</a></div>
 			<div class="headerButton"><a href="index.html" title="Reference" accesskey="P">previous</a></div>
 		</li>
 	</ul>
@@ -48,8 +50,10 @@
 	<ul><li class="toctree-l1"><a href="../index.html">Main Page</a></li></ul>
 	<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../resource_mapping.html">Creating a Resource</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Model Reference</a></li>
 </ul>
 </li>
 </ul>
@@ -83,8 +87,21 @@
             
   <div class="section" id="settings">
 <h1>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h1>
-<p>RESOURCE_TYPE_CHOICES</p>
+<div class="section" id="resource-type-choices">
+<span id="resource-type-choices-setting"></span><h2>RESOURCE_TYPE_CHOICES<a class="headerlink" href="#resource-type-choices" title="Permalink to this headline">¶</a></h2>
+<p><strong>Default:</strong> <tt class="docutils literal"><span class="pre">None</span></tt></p>
 <p>A list of labels used for Slide and Resource. If left empty, a plain character field is displayed</p>
+</div>
+<div class="section" id="image-storage">
+<span id="image-storage-setting"></span><h2>IMAGE_STORAGE<a class="headerlink" href="#image-storage" title="Permalink to this headline">¶</a></h2>
+<p><strong>Default:</strong> <tt class="docutils literal"><span class="pre">settings.DEFAULT_FILE_STORAGE</span></tt></p>
+<p>The file storage class to use for image storage.</p>
+</div>
+<div class="section" id="key-image-model">
+<span id="key-image-model-setting"></span><h2>KEY_IMAGE_MODEL<a class="headerlink" href="#key-image-model" title="Permalink to this headline">¶</a></h2>
+<p><strong>Default:</strong> <tt class="docutils literal"><span class="pre">None</span></tt></p>
+<p>If specified, a <tt class="xref py py-class docutils literal"><span class="pre">ForeignKeyField</span></tt> is created and linked to that model to provide images for <a class="reference internal" href="models.html#Slide" title="Slide"><tt class="xref py py-class docutils literal"><span class="pre">Slide</span></tt></a>s and <tt class="xref py py-class docutils literal"><span class="pre">Resource</span></tt>s.</p>
+</div>
 </div>
 
 

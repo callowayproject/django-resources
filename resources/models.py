@@ -77,8 +77,7 @@ class Slide(models.Model):
     citation = models.CharField(
         max_length=255,
         blank=True, null=True)
-    notes = models.CharField(
-        max_length=255,
+    notes = models.TextField(
         blank=True, null=True)
     internal_ref = models.CharField(
         max_length=255,

@@ -1,46 +1,58 @@
-================
-Resource Mapping
-================
+.. _creating_a_resource:
 
-There are attributes for a resource that every object should have. Since these attributes may go by different names in different objects, you may create a mapping for each object.
+===================
+Creating a Resource
+===================
 
-Attributes
-==========
+Common Attributes
+=================
+
+You convert one of your Django models into a Resource by creating and registering a Resource class. The :py:class:`BaseResource` class defines common attributes for a resource. Since these attributes may go by different names in different objects, you will create a custom Resource for each model to extract the information.
+
+.. _resource_type_attr:
 
 **Resource Type**
     A brief label for the type of resource, like "Image" or "Multimedia". Resource Types do not have to be unique. Different objects with the same Resource Type are grouped together when listing by Resource Type.
 
+.. _title_attr:
+
 **Title**
     The title of the object.
+
+.. _description_attr:
 
 **Description**
     Descriptive text of the object.
 
+.. _key_image_attr:
+
 **Key Image**
     An image for display.
+
+.. _credit_attr:
 
 **Credit**
     Credit line for the object.
 
+.. _url_attr:
+
 **URL**
     The URL for this object.
+
+.. _citation_attr:
 
 **Citation**
     A non-Internet citation of the resource, like a book.
 
+.. _notes_attr:
+
 **Notes**
     Any notes regarding this resource.
 
+.. _internal_ref_attr:
+
 **Internal Reference**
     An arbitrary reference for your internal use.
-
-
-.. _creating_a_resource:
-
-Creating a Resource
-===================
-
-You convert one of your Django models into a Resource by creating and registering a Resource class.
 
 Django Resources attempts to import ``resources`` from every entry in ``INSTALLED_APPS``.
 

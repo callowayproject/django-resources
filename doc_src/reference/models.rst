@@ -29,25 +29,25 @@ Slide
 
       :py:class:`CharField` ``(50)``
 
-      An override of the ``content_object``'s resource type. Choices are displayed if specified in RESOURCE_TYPE_CHOICES. It will use the ``content_object``'s mapped resource type if blank.
+      An override of the ``content_object``'s :ref:`resource type <resource_type_attr>`. Choices are displayed if specified in RESOURCE_TYPE_CHOICES. It will use the ``content_object``'s mapped resource type if blank.
 
    .. py:attribute:: title
 
       :py:class:`CharField` ``(100)``
 
-      An override of the title of the ``content_object``. It will use the ``content_object``'s mapped title if blank.
+      An override of the :ref:`title <title_attr>` of the ``content_object``. It will use the ``content_object``'s mapped title if blank.
 
    .. py:attribute:: description
 
       :py:class:`TextField`
 
-      An override of the description of the ``content_object``. It will use the ``content_object``'s mapped description if blank.
+      An override of the :ref:`description <description_attr>` of the ``content_object``. It will use the ``content_object``'s mapped description if blank.
 
    .. py:attribute:: key_image_custom
 
       :py:class:`FileField`
 
-      An override of the key image of the ``content_object``. It will use the ``content_object``'s mapped key image if blank.
+      An override of the :ref:`key image <key_image_attr>` of the ``content_object``. It will use the ``content_object``'s mapped key image if blank.
 
    .. py:attribute:: key_image_width
 
@@ -63,22 +63,39 @@ Slide
 
    .. py:attribute:: key_image_related
 
-      :py:class:`ForeignKey` ``(`` :ref:`key_image_model` ``)``
+      :py:class:`ForeignKey` ``(`` :ref:`key_image_model_setting` ``)``
 
-      An override of the key image of the ``content_object`` using a related model as defined in :ref:`key_image_model`. It will use the ``content_object``'s mapped key image if blank.
+      An override of the key image of the ``content_object`` using a related model as defined in :ref:`key_image_model_setting`. It will use the ``content_object``'s mapped key image if blank.
 
    .. py:attribute:: credit
 
       :py:class:`CharField` ``(255)``
 
-      An override of the credit of the ``content_object``. It will use the ``content_object``'s mapped credit if blank.
+      An override of the :ref:`credit <credit_attr>` of the ``content_object``. It will use the ``content_object``'s mapped credit if blank.
 
    .. py:attribute:: url
 
       :py:class:`CharField` ``(255)``
 
-      An override of the URL of the ``content_object``. It will use the ``content_object``'s mapped URL if blank.
+      An override of the :ref:`URL <url_attr>` of the ``content_object``. It will use the ``content_object``'s mapped URL if blank.
 
+   .. py:attribute:: citation
+
+      :py:class:`CharField` ``(255)``
+
+      An override of the :ref:`citation <citation_attr>` of the ``content_object``. It will use the ``content_object``'s mapped citation if blank.
+
+   .. py:attribute:: notes
+
+      :py:class:`TextField`
+
+      An override of the :ref:`notes <notes_attr>` of the ``content_object``. It will use the ``content_object``'s mapped notes if blank.
+
+   .. py:attribute:: internal_ref
+
+      :py:class:`CharField` ``(255)``
+
+      An override of the :ref:`internal_ref <internal_ref_attr>` of the ``content_object``. It will use the ``content_object``'s mapped internal_ref if blank.
 
 
 ModelName
