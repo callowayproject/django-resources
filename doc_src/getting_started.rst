@@ -30,6 +30,9 @@ Create and register a Resource
 
 see :ref:`creating_a_resource`
 
+Adding Resources to a Model
+===========================
+
 Serializing Resources
 =====================
 

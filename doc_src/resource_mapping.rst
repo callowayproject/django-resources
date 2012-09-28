@@ -64,7 +64,7 @@ Here is an example of making an audio resource:
 I left lines 20-30 in but commented out to show that this resource isn't going to implement those items. There might be two reasons for this:
 
 #. The model does not have any equivalent fields with this information. The default implementation will simply return ``''``.
-#. The model has fields with those default names (``credit``, ``citation``, ``notes``, ``internal_ref``)
+#. The model has fields with those default names (``credit``, ``citation``, ``notes``, ``internal_ref``) and the :py:class:`BaseResource` class will return the value by default.
 
 
 Specialized Resources
@@ -74,6 +74,7 @@ Slide
 -----
 
 A Slide typically wraps another object, allowing one-time overriding of the object's attributes. For example, if you wanted to provide a different caption for a photo object, you would create a slide, link the photo object and provide a new caption. Then the slide is added to the resource listing instead of the original object.
+
 
 Resource
 --------

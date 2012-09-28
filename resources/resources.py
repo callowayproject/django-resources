@@ -89,6 +89,18 @@ class ResourceList(object):
     def __init__(self):
         self._registry = {}
 
+    def content_types_lookup(self):
+        """
+        Return the a query lookup for ContentType models registered.
+        """
+        from django.db.models import Q
+        relations = []
+        for i in self._registry.keys():
+            relations.append(
+                Q(app_label=i._meta.app_label, model=i._meta.object_name.lower())
+            )
+        return reduce(lambda x, y: x | y, relations)
+
     def register(self, model_or_iterable, resource_class=None):
         from django.db.models.base import ModelBase
 
