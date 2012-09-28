@@ -1,10 +1,13 @@
 from django.contrib import admin
 
-from .models import SimpleModel
+from .models import Food, Beverage, Person
 
-class SimpleModelAdmin(admin.ModelAdmin):
+from resources.admin import RelatedInline
+
+
+class SimpleAdmin(admin.ModelAdmin):
     list_display = ('name', )
-    prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name',)
+    inlines = [RelatedInline]
 
-admin.site.register(SimpleModel, SimpleModelAdmin)
+admin.site.register((Food, Beverage, Person), SimpleAdmin)
