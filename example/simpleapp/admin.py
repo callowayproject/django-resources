@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import Food, Beverage, Person
 
-from resources.admin import RelatedInline
+from supplycloset.admin import RelatedInline
 
 
 class SimpleAdmin(admin.ModelAdmin):

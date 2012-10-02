@@ -108,6 +108,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'resources',
+    'supplycloset',
     'simpleapp',
 )
+
+SUPPLYCLOSET_SETTINGS = {
+    'KEY_IMAGE_MODEL': 'simpleapp.KeyImageShim',
+    'RESOURCE_TYPE_CHOICES': (('maps', 'Maps'), ('av', 'Audio & Video'), ('image', 'Image'))
+}

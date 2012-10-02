@@ -1,5 +1,5 @@
 """
-django-resources
+django-supplycloset
 """
 __version_info__ = {
     'major': 0,
@@ -8,6 +8,7 @@ __version_info__ = {
     'releaselevel': 'final',
     'serial': 1
 }
+
 
 def get_version(short=False):
     assert __version_info__['releaselevel'] in ('alpha', 'beta', 'final')
@@ -42,7 +43,7 @@ try:
             # Attempt to import the app's resources module.
             try:
                 before_import_registry = copy.copy(resource_list._registry)
-                import_module('%s.admin' % app)
+                import_module('%s.resources' % app)
             except:
                 # Reset the model registry to the state before the last import as
                 # this import will have to reoccur on the next request and this
