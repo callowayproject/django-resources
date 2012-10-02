@@ -13,68 +13,51 @@ class BaseResource(object):
     """
     Base class that allows for mapping of a model to resource information
     """
-    def __init__(self, model):
-        self.model = model
+    missing_attribute_value = ''
+    raise_error_on_missing = False
 
-    def resource_name(self):
-        return self.model._meta.verbose_name
+    def __init__(self, instance):
+        self.instance = instance
 
-    def get_resource_type(self):
-        return getattr(self.model, 'resource_type', '')
-
-    def get_title(self):
-        return getattr(self.model, 'title', '')
-
-    def get_description(self):
-        return getattr(self.model, 'description', '')
-
-    def get_key_image(self):
-        return getattr(self.model, 'key_image', '')
-
-    def get_credit(self):
-        return getattr(self.model, 'credit', '')
+    def get_resource_name(self):
+        return self.instance._meta.verbose_name
 
     def get_url(self):
-        gau = getattr(self.model, 'get_absolute_url', '')
+        gau = getattr(self.instance, 'get_absolute_url', '')
         if gau:
             return gau()
 
-    def get_citation(self):
-        return getattr(self.model, 'citation', '')
+    def __getattr__(self, name):
+        """
+        Try to get ``name`` from a get_FOO method or the original object
 
-    def get_notes(self):
-        return getattr(self.model, 'notes', '')
+        Remember: __getattr__ is only called when ``name`` is not found.
 
-    def get_internal_ref(self):
-        return getattr(self.model, 'internal_ref', '')
+        This method could get recursively called twice, the first time, it will
+        add ``get_`` to the beginning at try again. Then it tries the self.instance
+        """
+        if name.startswith("get_"):
+            try:
+                import re
+                original_name = re.sub(r"^get_", "", name)
+                return getattr(self.instance, original_name)
+            except AttributeError:
+                if self.raise_error_on_missing:
+                    raise
+                else:
+                    return self.missing_attribute_value
+        else:
+            accessor_name = "get_%s" % name
+            get_value = getattr(self, accessor_name, False)
+            if callable(get_value):
+                return get_value()
+            else:
+                return get_value
 
-    @property
-    def resource_type(self):
-        return self.get_resource_type()
+    def __str__(self):
+        return "%s Resource" % self.get_resource_name().capitalize()
 
-    @property
-    def title(self):
-        return self.get_title()
 
-    @property
-    def description(self):
-        return self.get_description()
-
-    @property
-    def key_image(self):
-        return self.get_key_image()
-
-    @property
-    def credit(self):
-        return self.get_credit()
-
-    @property
-    def notes(self):
-        return self.get_notes()
-
-    @property
-    def citation(self):
-        return self.get_citation()
 
     @property
     def internal_ref(self):
