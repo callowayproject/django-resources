@@ -21,4 +21,5 @@ Contents
    getting_started
    resource_mapping
    using_resources
+   serializing_resources
    reference/index

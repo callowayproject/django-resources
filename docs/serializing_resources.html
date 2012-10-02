@@ -1,0 +1,183 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Serializing Resources &mdash; django-supplycloset 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="django-supplycloset 0.1 documentation" href="index.html" />
+    <link rel="next" title="Reference" href="reference/index.html" />
+    <link rel="prev" title="Using Resources" href="using_resources.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-supplycloset 0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Serializing Resources</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="reference/index.html" title="Reference" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="using_resources.html" title="Using Resources" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+	<ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+	<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resource_mapping.html">Creating a Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_resources.html">Using Resources</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Serializing Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-serialize-a-list-of-resources">How to serialize a list of resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-a-serializer">Writing a serializer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+      
+        <form class="search" action="search.html" method="get">
+			<div class="search-wrapper">
+			<span class="search-left"></span>
+			<input class="prettysearch" type="text" name="q" size="18" />
+			<span class="search-right">&nbsp;</span>
+			</div>
+          <input type="submit" value="Search" class="searchbutton" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+        Enter search terms or a module, class or function name.
+        </p>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="serializing-resources">
+<h1>Serializing Resources<a class="headerlink" href="#serializing-resources" title="Permalink to this headline">¶</a></h1>
+<p>Many times resources are used in another context, such as an Adobe Flash application. Serialization is the process of converting a set of resources into another format such as XML or JSON. Supply Closet&#8217;s serialization framework provides a mechanism for &#8220;translating&#8221; <tt class="docutils literal"><span class="pre">Resource</span></tt>s into other formats. Usually these other formats will be text-based and used for sending <tt class="docutils literal"><span class="pre">Resource</span></tt>s over a wire, but it&#8217;’&#8217;s possible for a serializer to handle any format (text-based or not).</p>
+<p>Supply Closet&#8217;s serializization framework is closely based on <a class="reference external" href="https://docs.djangoproject.com/en/1.4/topics/serialization/#serializing-django-objects">Django&#8217;s serialization framework</a>. But there is one fundamental difference. Since the nature of a <tt class="docutils literal"><span class="pre">Resource</span></tt> is flexible, there is no way to determine the fields or attributes of a <tt class="docutils literal"><span class="pre">Resource</span></tt>. Therefore it is difficult to write a completely generic serializer for a given format.</p>
+<div class="section" id="how-to-serialize-a-list-of-resources">
+<h2>How to serialize a list of resources<a class="headerlink" href="#how-to-serialize-a-list-of-resources" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Load your serializer (see <a class="reference internal" href="#writing-a-serializer"><em>Writing a serializer</em></a>)</li>
+<li>Instantiate your serializer</li>
+<li>Call its <tt class="xref py py-meth docutils literal"><span class="pre">Serializer.serialize()</span></tt> method with your list of objects. These objects should have a <tt class="docutils literal"><span class="pre">Resource</span></tt> class registered.</li>
+</ol>
+<p>It could look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">myresources.resources</span> <span class="kn">import</span> <span class="n">MySerializer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">myserializer</span> <span class="o">=</span> <span class="n">MySerializer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="n">myserializer</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="n">object_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example, <tt class="docutils literal"><span class="pre">object_list</span></tt> is simply an iterable of Django <tt class="docutils literal"><span class="pre">Model</span></tt> instances with registered <tt class="docutils literal"><span class="pre">Resource</span></tt>s. Internally the serializer wraps the <tt class="docutils literal"><span class="pre">object_list</span></tt> in a <a class="reference internal" href="reference/resources.html#ResourceIterator" title="ResourceIterator"><tt class="xref py py-class docutils literal"><span class="pre">ResourceIterator</span></tt></a></p>
+</div>
+<div class="section" id="writing-a-serializer">
+<span id="id1"></span><h2>Writing a serializer<a class="headerlink" href="#writing-a-serializer" title="Permalink to this headline">¶</a></h2>
+<p>Your serializer should subclass <tt class="xref py py-class docutils literal"><span class="pre">Serializer</span></tt>. Creating a functioning serializer requires only implementing one of two methods: either <tt class="xref py py-meth docutils literal"><span class="pre">Serializer.serialize_object()</span></tt> or <tt class="xref py py-meth docutils literal"><span class="pre">Serializer.handle_field()</span></tt>. You can only use <tt class="docutils literal"><span class="pre">handle_field</span></tt> if you pass a <tt class="docutils literal"><span class="pre">selected_fields</span></tt> parameter to the <tt class="xref py py-meth docutils literal"><span class="pre">Serializer.serialize()</span></tt> method.</p>
+<div class="section" id="basic-serialization">
+<h3>Basic serialization<a class="headerlink" href="#basic-serialization" title="Permalink to this headline">¶</a></h3>
+<p>Here is a very simplistic CSV serializer for a <tt class="docutils literal"><span class="pre">Resource</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">supplycloset.serializer</span> <span class="kn">import</span> <span class="n">Serializer</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+
+<span class="k">class</span> <span class="nc">SimpleCSVSerializer</span><span class="p">(</span><span class="n">Serializer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This will serialize resources with name and description attributes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">serialize_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="n">csv_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">)</span>
+        <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">description</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>This only implements the <tt class="docutils literal"><span class="pre">serialize_object</span></tt> method. For more complex formats, you will probably need to do more.</p>
+</div>
+<div class="section" id="advanced-serialization">
+<h3>Advanced serialization<a class="headerlink" href="#advanced-serialization" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="xref py py-class docutils literal"><span class="pre">Serializer</span></tt> object has several event methods that you can use to help with the out put.</p>
+<ul class="simple">
+<li><strong>start serialization()</strong> Called at the start of the process</li>
+<li><strong>end serialization()</strong> Called at the end of the process</li>
+<li><strong>start object(obj)</strong> Called before serializing of the passed object</li>
+<li><strong>end object(obj)</strong> Called after serializing of the passed object</li>
+</ul>
+<p>Here is an example of a very simple JSON serializer:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">supplycloset.serializer</span> <span class="kn">import</span> <span class="n">Serializer</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="k">class</span> <span class="nc">SimpleJSONSerializer</span><span class="p">(</span><span class="n">Serializer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This will serialize resources with name and description attributes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">start_serialization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;[&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">end_serialization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;]&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">serialize_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">description</span><span class="p">}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">first</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">out</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This serializer uses the <tt class="docutils literal"><span class="pre">start_serialization</span></tt> and <tt class="docutils literal"><span class="pre">end_serialization</span></tt> methods to add the enclosing brackets <tt class="docutils literal"><span class="pre">[]</span></tt> around the objects.</p>
+</div>
+</div>
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2012, National Geographic Society.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		Serializing Resources
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+  </body>
+</html>
