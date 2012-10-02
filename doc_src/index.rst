@@ -1,11 +1,11 @@
-============================
-django-resources v |version|
-============================
+===============================
+django-supplycloset v |version|
+===============================
 
 About
 =====
 
-Django Resources is designed to allow an object to specify an ordered collection of other objects as resources.
+Django Supply Closet is designed to allow an object to specify an ordered collection of other objects as resources.
 
 Two models are defined to help with this: Resource, which defines an external resource, and Slide which allows for customization of the attributes of the original object.
 
@@ -20,4 +20,5 @@ Contents
 
    getting_started
    resource_mapping
+   using_resources
    reference/index

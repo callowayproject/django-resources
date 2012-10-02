@@ -4,79 +4,59 @@
 Creating a Resource
 ===================
 
-Common Attributes
-=================
+.. contents::
+   :local:
 
-You convert one of your Django models into a Resource by creating and registering a Resource class. The :py:class:`BaseResource` class defines common attributes for a resource. Since these attributes may go by different names in different objects, you will create a custom Resource for each model to extract the information.
+Establishing the interface
+==========================
 
-.. _resource_type_attr:
+Before you do anything, plan out which attributes you want to unify. For out example, we'll say we want ``title``, ``description``, ``key_image`` and ``url``.
 
-**Resource Type**
-    A brief label for the type of resource, like "Image" or "Multimedia". Resource Types do not have to be unique. Different objects with the same Resource Type are grouped together when listing by Resource Type.
+With that in mind, we'll create our Resource models. Let's start with the ``Image`` model:
 
-.. _title_attr:
+.. literalinclude:: examples/imageresource.py
 
-**Title**
-    The title of the object.
+Our ``ImageResource`` class subclasses ``BaseResource``, which provides a bunch of helpful features. We created three methods ``get_title()``, ``get_description()``, and ``get_key_image()``, and in each of these methods, we simply returned the equivalent attribute for that model using the ``instance`` attribute.
 
-.. _description_attr:
+Aren't we missing something? What about the URL? Well, that leads us to discuss some features of :py:class:`BaseResource`.
 
-**Description**
-    Descriptive text of the object.
+Special Attributes of BaseResource
+==================================
 
-.. _key_image_attr:
+For the most part :py:class:`BaseResource` resolves requests for attributes in a specific and predictable way (see :ref:`accessing_resource_attributes`). There are two special attributes that it handles differently: ``resource_type`` and ``url``.
 
-**Key Image**
-    An image for display.
+.. _resource_name_attr:
 
-.. _credit_attr:
+Resource Name
+-------------
 
-**Credit**
-    Credit line for the object.
+By default :py:class:`BaseResource` returns the model's verbose name. This attribute becomes a standard way to refer to the type of resource. You can override the default value by defining a ``get_resource_name`` method in your sub-class.
+
 
 .. _url_attr:
 
-**URL**
-    The URL for this object.
+URL
+---
 
-.. _citation_attr:
-
-**Citation**
-    A non-Internet citation of the resource, like a book.
-
-.. _notes_attr:
-
-**Notes**
-    Any notes regarding this resource.
-
-.. _internal_ref_attr:
-
-**Internal Reference**
-    An arbitrary reference for your internal use.
-
-Django Resources attempts to import ``resources`` from every entry in ``INSTALLED_APPS``.
-
-Here is an example of making an audio resource:
-
-.. literalinclude:: examples/audioresource.py
-   :linenos:
-
-I left lines 20-30 in but commented out to show that this resource isn't going to implement those items. There might be two reasons for this:
-
-#. The model does not have any equivalent fields with this information. The default implementation will simply return ``''``.
-#. The model has fields with those default names (``credit``, ``citation``, ``notes``, ``internal_ref``) and the :py:class:`BaseResource` class will return the value by default.
+By default :py:class:`BaseResource` calls the instance's ``get_absolute_url`` method and returns the result. In some cases, you may want to return a different value, as we will when we define the Resource class for ``DownloadableFile``.
 
 
-Specialized Resources
-=====================
+Customizing the special attributes
+==================================
 
-Slide
------
+Let's define our interface for our ``DownloadableFile`` model.
 
-A Slide typically wraps another object, allowing one-time overriding of the object's attributes. For example, if you wanted to provide a different caption for a photo object, you would create a slide, link the photo object and provide a new caption. Then the slide is added to the resource listing instead of the original object.
+.. literalinclude:: examples/downloadablefileresource.py
 
+You'll notice that we defined four ``get_`` methods, and the ``get_url`` method returns the URL for the file instead of the model.
 
-Resource
---------
+Finally, let's define the interface for our ``Article`` model.
 
-A Resource is an external object. While it is a link outside of the web site, a Resource doesn't have to be the entire external web site. It could refer to an external image or video or downloadable item. Basically a Resource is a proxy object for anything that we don't have on our site.
+.. literalinclude:: examples/articleresource.py
+
+In this case, we defined a ``get_resource_name``. The version for our ``Article`` returns a different name depending on each instance's ``primary_category``.
+
+Where do I put these definitions?
+=================================
+
+Good question! Django Supply Closet attempts to import the ``resources`` module of every installed app package. So define these in a ``resource.py`` file.

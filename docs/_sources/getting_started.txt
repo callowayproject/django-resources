@@ -7,31 +7,21 @@ Install
 
 #. Use ``pip`` to install the package::
 
-       pip install django-resources
+       pip install django-supplycloset
 
-#. Add ``resources`` to your ``INSTALLED_APPS``:
+#. Add ``supplycloset`` to your ``INSTALLED_APPS``:
 
    .. code-block:: python
 
       INSTALLED_APPS = (
           # ...
-          'resources',
+          'supplycloset',
       )
 
 What is a Resource?
 ===================
 
-You have a bunch of models that store data. You want to relate these other models together, showing them as helpers to each other. Excellent! One problem: they all have differently named fields. One model's ``name`` is another model's ``title``.
+You have a bunch of models that store data, let's say an ``Image`` model, an ``Article`` model and ``DownloadableFile`` model. You want to use them together and in the same way, but you have a problem: none of the models' attributes are named the same! This is a nightmare! That's where a Resource comes in. A Resource is a wrapper around a model to provide a consistent interface.
 
-Django Resource provides a wrapper around models to provide a consistent interface. It defaults to several attributes that you can use, augment, or ignore entirely and use ones of your creation. The bottom line is that you don't have to make all your apps' models the same.
 
-Create and register a Resource
-==============================
-
-see :ref:`creating_a_resource`
-
-Serializing Resources
-=====================
-
-Getting the serialized resources for a model
-============================================
+Next see :ref:`creating_a_resource`

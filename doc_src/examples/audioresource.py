@@ -1,7 +1,7 @@
-import resources
+import supplycloset
 from .models import AudioModel
 
-class AudioResource(resources.BaseResource):
+class AudioResource(supplycloset.BaseResource):
     def get_resource_type(self):
         return "Audio & Video"
 
@@ -29,4 +29,4 @@ class AudioResource(resources.BaseResource):
     # def get_internal_ref(self):
     #     pass
 
-resources.resource_list.register(AudioModel, AudioResource)
+supplycloset.resource_list.register(AudioModel, AudioResource)

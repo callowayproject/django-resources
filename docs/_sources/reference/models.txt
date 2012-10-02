@@ -65,7 +65,7 @@ Slide
 
       :py:class:`ForeignKey` ``(`` :ref:`key_image_model_setting` ``)``
 
-      An override of the key image of the ``content_object`` using a related model as defined in :ref:`key_image_model`. It will use the ``content_object``'s mapped key image if blank.
+      An override of the key image of the ``content_object`` using a related model as defined in :ref:`key_image_model_setting`. It will use the ``content_object``'s mapped key image if blank.
 
    .. py:attribute:: credit
 

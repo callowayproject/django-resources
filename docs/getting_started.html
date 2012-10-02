@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Getting Started &mdash; django-resources 0.1 documentation</title>
+    <title>Getting Started &mdash; django-supplycloset 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,13 +24,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="django-resources 0.1 documentation" href="index.html" />
+    <link rel="top" title="django-supplycloset 0.1 documentation" href="index.html" />
     <link rel="next" title="Creating a Resource" href="resource_mapping.html" />
-    <link rel="prev" title="django-resources v 0.1" href="index.html" /> 
+    <link rel="prev" title="django-supplycloset v 0.1" href="index.html" /> 
   </head>
   <body>
 <div id="docstitle">
-	<p>django-resources 0.1 documentation</p>
+	<p>django-supplycloset 0.1 documentation</p>
 </div>
 <div id="header">
 	<div id="title"><h1>Getting Started</h1></div>
@@ -39,7 +39,7 @@
 		<li id="page_buttons">
 			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
 			<div class="headerButton"><a href="resource_mapping.html" title="Creating a Resource" accesskey="N">next</a></div>
-			<div class="headerButton"><a href="index.html" title="django-resources v 0.1" accesskey="P">previous</a></div>
+			<div class="headerButton"><a href="index.html" title="django-supplycloset v 0.1" accesskey="P">previous</a></div>
 		</li>
 	</ul>
 </div>
@@ -51,12 +51,10 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-is-a-resource">What is a Resource?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#create-and-register-a-resource">Create and register a Resource</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#serializing-resources">Serializing Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#getting-the-serialized-resources-for-a-model">Getting the serialized resources for a model</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="resource_mapping.html">Creating a Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_resources.html">Using Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
 </ul>
 
@@ -93,13 +91,13 @@
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">Use <tt class="docutils literal"><span class="pre">pip</span></tt> to install the package:</p>
-<div class="highlight-python"><pre>pip install django-resources</pre>
+<div class="highlight-python"><pre>pip install django-supplycloset</pre>
 </div>
 </li>
-<li><p class="first">Add <tt class="docutils literal"><span class="pre">resources</span></tt> to your <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt>:</p>
+<li><p class="first">Add <tt class="docutils literal"><span class="pre">supplycloset</span></tt> to your <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
     <span class="c"># ...</span>
-    <span class="s">&#39;resources&#39;</span><span class="p">,</span>
+    <span class="s">&#39;supplycloset&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -108,18 +106,8 @@
 </div>
 <div class="section" id="what-is-a-resource">
 <h2>What is a Resource?<a class="headerlink" href="#what-is-a-resource" title="Permalink to this headline">¶</a></h2>
-<p>You have a bunch of models that store data. You want to relate these other models together, showing them as helpers to each other. Excellent! One problem: they all have differently named fields. One model&#8217;s <tt class="docutils literal"><span class="pre">name</span></tt> is another model&#8217;s <tt class="docutils literal"><span class="pre">title</span></tt>.</p>
-<p>Django Resource provides a wrapper around models to provide a consistent interface. It defaults to several attributes that you can use, augment, or ignore entirely and use ones of your creation. The bottom line is that you don&#8217;t have to make all your apps&#8217; models the same.</p>
-</div>
-<div class="section" id="create-and-register-a-resource">
-<h2>Create and register a Resource<a class="headerlink" href="#create-and-register-a-resource" title="Permalink to this headline">¶</a></h2>
-<p>see <a class="reference internal" href="resource_mapping.html#creating-a-resource"><em>Creating a Resource</em></a></p>
-</div>
-<div class="section" id="serializing-resources">
-<h2>Serializing Resources<a class="headerlink" href="#serializing-resources" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="getting-the-serialized-resources-for-a-model">
-<h2>Getting the serialized resources for a model<a class="headerlink" href="#getting-the-serialized-resources-for-a-model" title="Permalink to this headline">¶</a></h2>
+<p>You have a bunch of models that store data, let&#8217;s say an <tt class="docutils literal"><span class="pre">Image</span></tt> model, an <tt class="docutils literal"><span class="pre">Article</span></tt> model and <tt class="docutils literal"><span class="pre">DownloadableFile</span></tt> model. You want to use them together and in the same way, but you have a problem: none of the models&#8217; attributes are named the same! This is a nightmare! That&#8217;s where a Resource comes in. A Resource is a wrapper around a model to provide a consistent interface.</p>
+<p>Next see <a class="reference internal" href="resource_mapping.html#creating-a-resource"><em>Creating a Resource</em></a></p>
 </div>
 </div>
 
@@ -129,7 +117,7 @@
       </div>
     <div class="footer">
     <p>
-      &copy; Copyright 2012, coordt.
+      &copy; Copyright 2012, National Geographic Society.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
 	</p>
     </div>

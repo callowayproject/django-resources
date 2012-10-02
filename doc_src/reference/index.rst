@@ -11,3 +11,4 @@ Reference
 
    settings
    models
+   resources

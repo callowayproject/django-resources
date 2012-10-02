@@ -9,7 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Index &mdash; django-resources 0.1 documentation</title>
+    <title>Index &mdash; django-supplycloset 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,11 +26,11 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="django-resources 0.1 documentation" href="index.html" /> 
+    <link rel="top" title="django-supplycloset 0.1 documentation" href="index.html" /> 
   </head>
   <body>
 <div id="docstitle">
-	<p>django-resources 0.1 documentation</p>
+	<p>django-supplycloset 0.1 documentation</p>
 </div>
 <div id="header">
 	<div id="title"><h1>Index</h1></div>
@@ -48,6 +48,7 @@
 	<ul>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="resource_mapping.html">Creating a Resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_resources.html">Using Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
 </ul>
 
@@ -86,8 +87,10 @@
 
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#K"><strong>K</strong></a>
  | <a href="#M"><strong>M</strong></a>
@@ -110,6 +113,16 @@
   </dl></td>
 </tr></table>
 
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="reference/resources.html#BaseResource">BaseResource (built-in class)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
@@ -121,10 +134,14 @@
   <dt><a href="reference/models.html#Slide.content_object">content_object (Slide attribute)</a>
   </dt>
 
+      
+  <dt><a href="reference/models.html#Slide.content_type">content_type (Slide attribute)</a>
+  </dt>
+
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="reference/models.html#Slide.content_type">content_type (Slide attribute)</a>
+  <dt><a href="reference/resources.html#ResourceList.content_types_lookup">content_types_lookup() (ResourceList method)</a>
   </dt>
 
       
@@ -144,8 +161,34 @@
   </dl></td>
 </tr></table>
 
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="reference/resources.html#ResourceList.get_for_instance">get_for_instance() (ResourceList method)</a>
+  </dt>
+
+      
+  <dt><a href="reference/resources.html#BaseResource.get_resource_type">get_resource_type() (BaseResource method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="reference/resources.html#BaseResource.get_url">get_url() (BaseResource method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="reference/resources.html#BaseResource.instance">instance (BaseResource attribute)</a>
+  </dt>
+
+  </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="reference/models.html#Slide.internal_ref">internal_ref (Slide attribute)</a>
@@ -180,6 +223,12 @@
 
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="reference/resources.html#BaseResource.missing_attribute_value">missing_attribute_value (BaseResource attribute)</a>
+  </dt>
+
+  </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="reference/models.html#ModelName">ModelName (built-in class)</a>
@@ -228,7 +277,25 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="reference/resources.html#BaseResource.raise_error_on_missing">raise_error_on_missing (BaseResource attribute)</a>
+  </dt>
+
+      
+  <dt><a href="reference/resources.html#ResourceList.register">register() (ResourceList method)</a>
+  </dt>
+
+      
   <dt><a href="reference/models.html#Slide.resource_type">resource_type (Slide attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="reference/resources.html#ResourceIterator">ResourceIterator (built-in class)</a>
+  </dt>
+
+      
+  <dt><a href="reference/resources.html#ResourceList">ResourceList (built-in class)</a>
   </dt>
 
   </dl></td>
@@ -277,7 +344,7 @@
       </div>
     <div class="footer">
     <p>
-      &copy; Copyright 2012, coordt.
+      &copy; Copyright 2012, National Geographic Society.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
 	</p>
     </div>

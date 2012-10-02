@@ -1,0 +1,172 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using Resources &mdash; django-supplycloset 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="django-supplycloset 0.1 documentation" href="index.html" />
+    <link rel="next" title="Reference" href="reference/index.html" />
+    <link rel="prev" title="Creating a Resource" href="resource_mapping.html" /> 
+  </head>
+  <body>
+<div id="docstitle">
+	<p>django-supplycloset 0.1 documentation</p>
+</div>
+<div id="header">
+	<div id="title"><h1>Using Resources</h1></div>
+	<ul id="headerButtons">
+		<li id="toc_button"><div class="headerButton"><a href="#">Table of Contents</a></div></li>
+		<li id="page_buttons">
+			<div class="headerButton"><a href="genindex.html" title="General Index" accesskey="I">index</a></div>
+			<div class="headerButton"><a href="reference/index.html" title="Reference" accesskey="N">next</a></div>
+			<div class="headerButton"><a href="resource_mapping.html" title="Creating a Resource" accesskey="P">previous</a></div>
+		</li>
+	</ul>
+</div>
+
+<div id="sphinxsidebar">
+  <div class="sphinxsidebarwrapper">
+	<ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+	<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resource_mapping.html">Creating a Resource</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Using Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-the-resource-class-from-a-model">Getting the Resource class from a model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-the-resource-from-a-model-instance">Getting the Resource from a model instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-resource-attributes">Accessing resource attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-the-resources-of-a-list-of-objects">Getting the Resources of a list of objects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+</ul>
+
+    <div id="searchbox" style="display: none">
+      
+        <form class="search" action="search.html" method="get">
+			<div class="search-wrapper">
+			<span class="search-left"></span>
+			<input class="prettysearch" type="text" name="q" size="18" />
+			<span class="search-right">&nbsp;</span>
+			</div>
+          <input type="submit" value="Search" class="searchbutton" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+        Enter search terms or a module, class or function name.
+        </p>
+    </div>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+</div>
+
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="using-resources">
+<h1>Using Resources<a class="headerlink" href="#using-resources" title="Permalink to this headline">¶</a></h1>
+<p>Using a resource requires instantiating the registered resource class with an instance of the appropriate class. In short:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ExampleResource</span><span class="p">(</span><span class="n">Example</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>But since you probably are missing key information about which resource goes with with object, there are some easier ways to do this.</p>
+<div class="section" id="getting-the-resource-class-from-a-model">
+<h2>Getting the Resource class from a model<a class="headerlink" href="#getting-the-resource-class-from-a-model" title="Permalink to this headline">¶</a></h2>
+<p>If you have the model, you can get the resource class from the <a class="reference internal" href="reference/resources.html#resource-list"><em>resource_list</em></a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">supplycloset</span> <span class="kn">import</span> <span class="n">resource_list</span>
+<span class="kn">from</span> <span class="nn">simpleapp.models</span> <span class="kn">import</span> <span class="n">Food</span>
+<span class="n">FoodResourceClass</span> <span class="o">=</span> <span class="n">resource_list</span><span class="p">[</span><span class="n">Food</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Then you can instantiate the class with any <tt class="xref py py-class docutils literal"><span class="pre">Food</span></tt> object.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">food_item</span> <span class="o">=</span> <span class="n">Food</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">resource</span> <span class="o">=</span> <span class="n">FoodResourceClass</span><span class="p">(</span><span class="n">food_item</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-the-resource-from-a-model-instance">
+<h2>Getting the Resource from a model instance<a class="headerlink" href="#getting-the-resource-from-a-model-instance" title="Permalink to this headline">¶</a></h2>
+<p>An even simpler way to get a Resource is to use the <a class="reference internal" href="reference/resources.html#ResourceList.get_for_instance" title="ResourceList.get_for_instance"><tt class="xref py py-meth docutils literal"><span class="pre">ResourceList.get_for_instance()</span></tt></a> method on the <a class="reference internal" href="reference/resources.html#resource-list"><em>resource_list</em></a> object. This method takes an instance, and does the lookup and instantiation for you.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">supplycloset</span> <span class="kn">import</span> <span class="n">resource_list</span>
+<span class="kn">from</span> <span class="nn">simpleapp.models</span> <span class="kn">import</span> <span class="n">Food</span>
+<span class="n">food_item</span> <span class="o">=</span> <span class="n">Food</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">resource</span> <span class="o">=</span> <span class="n">resource_list</span><span class="o">.</span><span class="n">get_for_instance</span><span class="p">(</span><span class="n">food_item</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-resource-attributes">
+<span id="id1"></span><h2>Accessing resource attributes<a class="headerlink" href="#accessing-resource-attributes" title="Permalink to this headline">¶</a></h2>
+<p>A Resource class attempts to get an attribute several ways:</p>
+<ol class="arabic simple">
+<li>An attempt to access <tt class="docutils literal"><span class="pre">resource.FOO</span></tt> attempts to call the <tt class="docutils literal"><span class="pre">resource.get_FOO()</span></tt> method.</li>
+<li>If a subclass has defined the <tt class="docutils literal"><span class="pre">get_FOO()</span></tt> method, then that result is returned.</li>
+<li>If there is not a <tt class="docutils literal"><span class="pre">get_FOO()</span></tt> method defined, the resource attempts to get the <tt class="docutils literal"><span class="pre">FOO</span></tt> attribute from the original instance.</li>
+<li>If that fails, it will either raise an <tt class="xref py py-class docutils literal"><span class="pre">AttributeError</span></tt> if the resource&#8217;s <a class="reference internal" href="reference/resources.html#BaseResource.raise_error_on_missing" title="BaseResource.raise_error_on_missing"><tt class="xref py py-attr docutils literal"><span class="pre">BaseResource.raise_error_on_missing</span></tt></a> is <tt class="docutils literal"><span class="pre">True</span></tt> (its default value is <tt class="docutils literal"><span class="pre">False</span></tt>) or return the :py:attr`BaseResource.missing_attribute_value` value, which is <tt class="docutils literal"><span class="pre">''</span></tt> by default.</li>
+</ol>
+</div>
+<div class="section" id="getting-the-resources-of-a-list-of-objects">
+<span id="getting-the-resources-list-objects"></span><h2>Getting the Resources of a list of objects<a class="headerlink" href="#getting-the-resources-of-a-list-of-objects" title="Permalink to this headline">¶</a></h2>
+<p>What if you have a list of items and you want to use them as Resources? That&#8217;s where the <a class="reference internal" href="reference/resources.html#ResourceIterator" title="ResourceIterator"><tt class="xref py py-class docutils literal"><span class="pre">ResourceIterator</span></tt></a> comes in. the ResourceIterator wraps any iterator or sequence and returns each item&#8217;s registered Resource class. Here is a simple example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">articleapp.models</span> <span class="kn">import</span> <span class="n">Article</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imageapp.models</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">downloads.models</span> <span class="kn">import</span> <span class="n">DownloadableFile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supplycloset.resources</span> <span class="kn">import</span> <span class="n">ResourceIterator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Article</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">DownloadableFile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ResourceIterator</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="n">i</span>
+<span class="gp">...</span>
+<span class="go">Article Resource</span>
+<span class="go">Image Resource</span>
+<span class="go">Downloadablefile Resource</span>
+</pre></div>
+</div>
+<p>When we passed a list of an Article, Image and Downloadable File to <a class="reference internal" href="reference/resources.html#ResourceIterator" title="ResourceIterator"><tt class="xref py py-class docutils literal"><span class="pre">ResourceIterator</span></tt></a> we got back an iterator of their corresponding resources.</p>
+</div>
+</div>
+
+
+          </div> 
+        </div>
+      </div>
+    <div class="footer">
+    <p>
+      &copy; Copyright 2012, National Geographic Society.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+	</p>
+    </div>
+      <div class="clearer"></div>
+    </div>
+	<div id="breadcrumbs">
+		Using Resources
+		</ul>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+  </body>
+</html>
