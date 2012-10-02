@@ -58,10 +58,18 @@ class BaseResource(object):
         return "%s Resource" % self.get_resource_name().capitalize()
 
 
+class ResourceIterator(list):
+    """
+    Takes a sequence of objects, and returns the resource class registered for it
+    when iterated against
+    """
+    def __getitem__(self, key):
+        val = super(ResourceIterator, self).__getitem__(key)
+        return resource_list.get_for_instance(val)
 
-    @property
-    def internal_ref(self):
-        return self.get_internal_ref()
+    def __iter__(self):
+        for item in super(ResourceIterator, self).__iter__():
+            yield resource_list.get_for_instance(item)
 
 
 class ResourceList(object):
@@ -99,6 +107,19 @@ class ResourceList(object):
 
             if model in self._registry:
                 raise AlreadyRegistered('The model %s is already registered' % model.__name__)
-            self._registry[model] = resource_class(model)
+            self._registry[model] = resource_class
+
+    def get_for_instance(self, instance):
+        """
+        Return the registered resource instance for the instance passed
+        """
+        resource_class = self._registry[instance.__class__]
+        return resource_class(instance)
+
+    def __getitem__(self, key):
+        """
+        mapping for _registry
+        """
+        return self._registry[key]
 
 resource_list = ResourceList()
