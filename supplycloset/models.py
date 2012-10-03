@@ -124,62 +124,11 @@ class Slide(models.Model):
 
 resource_list.register(Slide, BaseResource)
 
-
-class RelatedResourceManager(models.Manager):
-    def get_content_type(self, content_type, **kwargs):
-        """
-        Get all the items of the given content type related to this item.
-        """
-        qs = self.get_query_set()
-        return qs.filter(content_type__name=content_type, **kwargs)
-
-    def get_relation_source(self, relation_source, **kwargs):
-        """
-        Get all the items of the given relation source to this item
-        """
-        qs = self.get_query_set()
-        return qs.filter(relation_source=relation_source, **kwargs)
-
-
-class RelatedResource(models.Model):
-    """
-    A resource related to another object
-    """
-    # SOURCE OBJECT
-    parent_type = models.ForeignKey(ContentType,
-        related_name="child_relatedobjects")
-    parent_id = models.IntegerField(db_index=True)
-    parent = GenericForeignKey(
-        ct_field="parent_type",
-        fk_field="parent_id")
-
-    # ACTUAL RELATED OBJECT:
-    object_type = models.ForeignKey(ContentType,
-        related_name="related_objects",)
-        # limit_choices_to=resource_list.content_types_lookup())
-    object_id = models.IntegerField(db_index=True)
-    object = GenericForeignKey(
-        ct_field="object_type",
-        fk_field="object_id")
-
-    # METADATA
-    relation_source = models.IntegerField(
-        editable=False,
-        blank=True, null=True)
-    relation_type = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True)
-    order = models.IntegerField(
-        blank=True, null=True)
-
-    objects = RelatedResourceManager()
-
-    class Meta:
-        ordering = ('relation_source', 'parent_type', 'parent_id', 'order', )
-
-    def __unicode__(self):
-        return u'%s related to %s' % (self.parent, self.object)
-
 from supplycloset import autodiscover
 autodiscover()
+
+from supplycloset.settings import SETUP_MODELS
+from supplycloset.registration import monkey_patch
+for model, fields in SETUP_MODELS.items():
+    for field in fields:
+        monkey_patch(model, field)
