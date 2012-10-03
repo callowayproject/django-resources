@@ -22,4 +22,5 @@ Contents
    resource_mapping
    using_resources
    serializing_resources
+   resources_and_models
    reference/index

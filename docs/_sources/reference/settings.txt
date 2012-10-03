@@ -28,3 +28,12 @@ KEY_IMAGE_MODEL
 **Default:** ``None``
 
 If specified, a :py:class:`ForeignKeyField` is created and linked to that model to provide images for :py:class:`Slide`\ s and :py:class:`Resource`\ s.
+
+.. _setup_resources_setting:
+
+SETUP_RESOURCES
+===============
+
+**Default:** ``[]``
+
+This takes a list of strings in the format ``'appname.Model.fieldname'`` like ``'auth.User.related'`` and adds the :py:class:`RelatedResource` generic many-to-many relation to the ``fieldname`` of ``appname.Model``.
