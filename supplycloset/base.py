@@ -94,7 +94,6 @@ class ResourceList(object):
 
     def register(self, model_or_iterable, resource_class=None):
         from django.db.models.base import ModelBase
-
         if resource_class is None:
             resource_class = BaseResource
         if isinstance(model_or_iterable, ModelBase):
@@ -106,7 +105,8 @@ class ResourceList(object):
                       'cannot be registered with admin.' % model.__name__)
 
             if model in self._registry:
-                raise AlreadyRegistered('The model %s is already registered' % model.__name__)
+                #raise AlreadyRegistered('The model %s is already registered' % model.__name__)
+                return
             self._registry[model] = resource_class
 
     def get_for_instance(self, instance):

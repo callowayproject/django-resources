@@ -23,7 +23,31 @@ __version__ = get_version()
 
 
 try:
-    from .resources import resource_list, BaseResource
+    from .base import resource_list, BaseResource
+    # from .descriptor import RelatedObjectsDescriptor
+
+    def discover(app):
+        import copy
+        from django.utils.importlib import import_module
+        from django.utils.module_loading import module_has_submodule
+
+        mod = import_module(app)
+        # Attempt to import the app's resources module.
+        try:
+            before_import_registry = copy.copy(resource_list._registry)
+            import_module('%s.resources' % app)
+        except:
+            # Reset the model registry to the state before the last import as
+            # this import will have to reoccur on the next request and this
+            # could raise NotRegistered and AlreadyRegistered exceptions
+            # (see #8245).
+            resource_list._registry = before_import_registry
+
+            # Decide whether to bubble up this error. If the app just
+            # doesn't have an admin module, we can ignore the error
+            # attempting to import it, otherwise we want it to bubble up.
+            if module_has_submodule(mod, 'resources'):
+                raise
 
     def autodiscover():
         """
@@ -33,29 +57,11 @@ try:
 
         Copied from django.contrib.admin
         """
-        import copy
         from django.conf import settings
-        from django.utils.importlib import import_module
-        from django.utils.module_loading import module_has_submodule
 
         for app in settings.INSTALLED_APPS:
-            mod = import_module(app)
-            # Attempt to import the app's resources module.
-            try:
-                before_import_registry = copy.copy(resource_list._registry)
-                import_module('%s.resources' % app)
-            except:
-                # Reset the model registry to the state before the last import as
-                # this import will have to reoccur on the next request and this
-                # could raise NotRegistered and AlreadyRegistered exceptions
-                # (see #8245).
-                resource_list._registry = before_import_registry
-
-                # Decide whether to bubble up this error. If the app just
-                # doesn't have an admin module, we can ignore the error
-                # attempting to import it, otherwise we want it to bubble up.
-                if module_has_submodule(mod, 'resources'):
-                    raise
+            if app != 'supplycloset':
+                discover(app)
 
 except ImportError:
     pass

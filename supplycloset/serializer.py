@@ -1,6 +1,7 @@
 from io import BytesIO
 
-from .resources import ResourceIterator
+from .base import ResourceIterator
+
 
 class Serializer(object):
     """

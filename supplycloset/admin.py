@@ -113,10 +113,10 @@ class GenericCollectionTabularInline(GenericCollectionInlineModelAdmin):
 
 class RelatedInline(GenericCollectionTabularInline):
     model = RelatedResource
-    exclude = ('parent_type', 'parent_id')
+    exclude = ('source_type', 'source_id')
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
-        from .resources import resource_list
+        from .base import resource_list
         if db_field.name == "object_type":
             db_field.rel.limit_choices_to = resource_list.content_types_lookup()
         return super(RelatedInline, self).formfield_for_foreignkey(db_field, request, **kwargs)

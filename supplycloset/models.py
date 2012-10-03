@@ -2,8 +2,11 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.generic import GenericForeignKey
 
-from .resources import BaseResource, resource_list
+from .base import BaseResource, resource_list
 from .settings import RESOURCE_TYPE_CHOICES, IMAGE_STORAGE, KEY_IMAGE_MODEL
+
+# So this model gets created
+from .related import RelatedResource
 
 
 class ExternalResource(models.Model):
