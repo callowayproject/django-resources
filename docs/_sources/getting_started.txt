@@ -7,15 +7,15 @@ Install
 
 #. Use ``pip`` to install the package::
 
-       pip install django-supplycloset
+       pip install django-contentrelations
 
-#. Add ``supplycloset`` to your ``INSTALLED_APPS``:
+#. Add ``contentrelations`` to your ``INSTALLED_APPS``:
 
    .. code-block:: python
 
       INSTALLED_APPS = (
           # ...
-          'supplycloset',
+          'contentrelations',
       )
 
 What is a Resource?

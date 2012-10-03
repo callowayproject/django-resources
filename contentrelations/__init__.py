@@ -1,9 +1,10 @@
 """
-django-supplycloset
+Allows connecting any object to any other object and unifying the interface
+between all the objects.
 """
 __version_info__ = {
     'major': 0,
-    'minor': 2,
+    'minor': 3,
     'micro': 0,
     'releaselevel': 'final',
     'serial': 1
@@ -92,7 +93,7 @@ try:
         from django.conf import settings
 
         for app in settings.INSTALLED_APPS:
-            if app != 'supplycloset':
+            if app != 'contentrelations':
                 discover(app)
 
 except ImportError:

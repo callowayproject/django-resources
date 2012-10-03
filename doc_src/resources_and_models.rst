@@ -32,7 +32,7 @@ Here's a quick example:
 
     from django.db import models
 
-    from supplycloset.related import RelatedObjectsDescriptor
+    from contentrelations.related import RelatedObjectsDescriptor
 
 
     class Food(models.Model):
@@ -98,7 +98,7 @@ Now that we have some Food, Beverage and User objects, create some connections b
 
     >>> rel_obj = pizza.related.connect(beer, relation_type='goes well with')
     >>> type(rel_obj) # what did we just create?
-    <class 'supplycloset.related.RelatedResource'>
+    <class 'contentrelations.related.RelatedResource'>
 
 The object that represents the connection is an instance of whatever is passed to the :py:class:`RelatedObjectDescriptor` when it is added to a model. The default is :py:class:`RelatedResource`. Here are the interesting properties of the new related object::
 
@@ -125,7 +125,7 @@ Retrieving the objects instead of the RelatedResource objects
 When the relationship is defined with a :py:class:`GenericForeignKey`, as is the case here, the :py:class`RelatedObjectsDescriptor` (here defined as ``related``) will return a special Django :py:class:`QuerySet` class that provides an optimized lookup of any ``GenericForeignKey``-ed objects::
 
     >>> type(pizza.related.all())
-    <class 'supplycloset.generic.GFKOptimizedQuerySet'>
+    <class 'contentrelations.generic.GFKOptimizedQuerySet'>
     >>> pizza.related.all().generic_objects() # traverse the GFK relationships
     [<Beverage: beer>]
 

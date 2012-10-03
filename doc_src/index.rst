@@ -1,11 +1,11 @@
-===============================
-django-supplycloset v |version|
-===============================
+===================================
+django-contentrelations v |version|
+===================================
 
 About
 =====
 
-Django Supply Closet is designed to allow an object to specify an ordered collection of other objects as resources.
+Django Content Relations is designed to allow an object to specify an ordered collection of other objects as resources.
 
 Two models are defined to help with this: Resource, which defines an external resource, and Slide which allows for customization of the attributes of the original object.
 

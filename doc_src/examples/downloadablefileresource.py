@@ -1,4 +1,4 @@
-from supplycloset import BaseResource, resource_list
+from contentrelations import BaseResource, resource_list
 from downloads.models import DownloadableFile
 
 class DownloadableFileResource(BaseResource):

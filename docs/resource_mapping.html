@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Creating a Resource &mdash; django-supplycloset 0.1 documentation</title>
+    <title>Creating a Resource &mdash; django-contentrelations 0.3 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1',
+        VERSION:     '0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,13 +24,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="django-supplycloset 0.1 documentation" href="index.html" />
+    <link rel="top" title="django-contentrelations 0.3 documentation" href="index.html" />
     <link rel="next" title="Using Resources" href="using_resources.html" />
     <link rel="prev" title="Getting Started" href="getting_started.html" /> 
   </head>
   <body>
 <div id="docstitle">
-	<p>django-supplycloset 0.1 documentation</p>
+	<p>django-contentrelations 0.3 documentation</p>
 </div>
 <div id="header">
 	<div id="title"><h1>Creating a Resource</h1></div>
@@ -107,7 +107,7 @@
 <h2><a class="toc-backref" href="#id2">Establishing the interface</a><a class="headerlink" href="#establishing-the-interface" title="Permalink to this headline">¶</a></h2>
 <p>Before you do anything, plan out which attributes you want to unify. For out example, we&#8217;ll say we want <tt class="docutils literal"><span class="pre">title</span></tt>, <tt class="docutils literal"><span class="pre">description</span></tt>, <tt class="docutils literal"><span class="pre">key_image</span></tt> and <tt class="docutils literal"><span class="pre">url</span></tt>.</p>
 <p>With that in mind, we&#8217;ll create our Resource models. Let&#8217;s start with the <tt class="docutils literal"><span class="pre">Image</span></tt> model:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">supplycloset</span> <span class="kn">import</span> <span class="n">BaseResource</span><span class="p">,</span> <span class="n">resource_list</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">contentrelations</span> <span class="kn">import</span> <span class="n">BaseResource</span><span class="p">,</span> <span class="n">resource_list</span>
 <span class="kn">from</span> <span class="nn">imageapp.models</span> <span class="kn">import</span> <span class="n">Image</span>
 
 <span class="k">class</span> <span class="nc">ImageResource</span><span class="p">(</span><span class="n">BaseResource</span><span class="p">):</span>
@@ -142,7 +142,7 @@
 <div class="section" id="customizing-the-special-attributes">
 <h2><a class="toc-backref" href="#id6">Customizing the special attributes</a><a class="headerlink" href="#customizing-the-special-attributes" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s define our interface for our <tt class="docutils literal"><span class="pre">DownloadableFile</span></tt> model.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">supplycloset</span> <span class="kn">import</span> <span class="n">BaseResource</span><span class="p">,</span> <span class="n">resource_list</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">contentrelations</span> <span class="kn">import</span> <span class="n">BaseResource</span><span class="p">,</span> <span class="n">resource_list</span>
 <span class="kn">from</span> <span class="nn">downloads.models</span> <span class="kn">import</span> <span class="n">DownloadableFile</span>
 
 <span class="k">class</span> <span class="nc">DownloadableFileResource</span><span class="p">(</span><span class="n">BaseResource</span><span class="p">):</span>
@@ -164,7 +164,7 @@
 </div>
 <p>You&#8217;ll notice that we defined four <tt class="docutils literal"><span class="pre">get_</span></tt> methods, and the <tt class="docutils literal"><span class="pre">get_url</span></tt> method returns the URL for the file instead of the model.</p>
 <p>Finally, let&#8217;s define the interface for our <tt class="docutils literal"><span class="pre">Article</span></tt> model.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">supplycloset</span> <span class="kn">import</span> <span class="n">BaseResource</span><span class="p">,</span> <span class="n">resource_list</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">contentrelations</span> <span class="kn">import</span> <span class="n">BaseResource</span><span class="p">,</span> <span class="n">resource_list</span>
 <span class="kn">from</span> <span class="nn">articleapp.models</span> <span class="kn">import</span> <span class="n">Article</span>
 
 <span class="k">class</span> <span class="nc">ArticleResource</span><span class="p">(</span><span class="n">BaseResource</span><span class="p">):</span>
@@ -197,7 +197,7 @@
       </div>
     <div class="footer">
     <p>
-      &copy; Copyright 2012, National Geographic Society.
+      &copy; Copyright 2012, Calloway Project.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
 	</p>
     </div>

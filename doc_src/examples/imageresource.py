@@ -1,4 +1,4 @@
-from supplycloset import BaseResource, resource_list
+from contentrelations import BaseResource, resource_list
 from imageapp.models import Image
 
 class ImageResource(BaseResource):

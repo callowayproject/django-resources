@@ -1,8 +1,8 @@
 recursive-include doc_src *
 recursive-include docs *
 
-recursive-include supplycloset/media *
-recursive-include supplycloset/templates *
+recursive-include contentrelations/media *
+recursive-include contentrelations/templates *
 
 include LICENSE
 include README

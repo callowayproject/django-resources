@@ -73,4 +73,4 @@ class RelatedInline(GenericCollectionTabularInline):
         return True
 
     class Media:
-        js = ("supplycloset/js/genericlookup.js",)
+        js = ("contentrelations/js/genericlookup.js",)

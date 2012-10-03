@@ -15,7 +15,7 @@ If you have the model, you can get the resource class from the :ref:`resource_li
 
 .. code-block:: python
 
-    from supplycloset import resource_list
+    from contentrelations import resource_list
     from simpleapp.models import Food
     FoodResourceClass = resource_list[Food]
 
@@ -33,7 +33,7 @@ An even simpler way to get a Resource is to use the :py:meth:`ResourceList.get_f
 
 .. code-block:: python
 
-    from supplycloset import resource_list
+    from contentrelations import resource_list
     from simpleapp.models import Food
     food_item = Food.objects.get(id=1)
     resource = resource_list.get_for_instance(food_item)
@@ -60,7 +60,7 @@ What if you have a list of items and you want to use them as Resources? That's w
     >>> from articleapp.models import Article
     >>> from imageapp.models import Image
     >>> from downloads.models import DownloadableFile
-    >>> from supplycloset.resources import ResourceIterator
+    >>> from contentrelations.resources import ResourceIterator
     >>> a = Article.objects.all()[0]
     >>> i = Image.objects.all()[0]
     >>> d = DownloadableFile.objects.all()[0]

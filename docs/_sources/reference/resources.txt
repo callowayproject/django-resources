@@ -63,7 +63,7 @@ ResourceList
 resource_list
 =============
 
-**from supplycloset import resource_list**
+**from contentrelations import resource_list**
 
 The instantiated :py:class:`ResourceList` used for registering :py:class:`Model`\ s with their :py:class:`BaseResource` sub-classes.
 

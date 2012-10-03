@@ -1,7 +1,7 @@
-import supplycloset
+import contentrelations
 from .models import AudioModel
 
-class AudioResource(supplycloset.BaseResource):
+class AudioResource(contentrelations.BaseResource):
     def get_resource_type(self):
         return "Audio & Video"
 
@@ -17,16 +17,4 @@ class AudioResource(supplycloset.BaseResource):
     def get_url(self):
         return self.model.audio_file.url
 
-    # def get_credit(self):
-    #     pass
-
-    # def get_citation(self):
-    #     pass
-
-    # def get_notes(self):
-    #     pass
-
-    # def get_internal_ref(self):
-    #     pass
-
-supplycloset.resource_list.register(AudioModel, AudioResource)
+contentrelations.resource_list.register(AudioModel, AudioResource)

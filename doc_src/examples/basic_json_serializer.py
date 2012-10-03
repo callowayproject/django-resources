@@ -1,4 +1,4 @@
-from supplycloset.serializer import Serializer
+from contentrelations.serializer import Serializer
 import json
 
 class SimpleJSONSerializer(Serializer):

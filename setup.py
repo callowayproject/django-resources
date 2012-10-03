@@ -20,14 +20,14 @@ def get_readme():
     return ''
 
 # Use the docstring of the __init__ file to be the description
-DESC = " ".join(__import__('supplycloset').__doc__.splitlines()).strip()
+DESC = " ".join(__import__('contentrelations').__doc__.splitlines()).strip()
 
 setup(
-    name="django-supplycloset",
-    version=__import__('supplycloset').get_version().replace(' ', '-'),
-    url='http://natgeoed.org/',
+    name="django-contentrelations",
+    version=__import__('contentrelations').get_version().replace(' ', '-'),
+    url='http://callowayproject.com/',
     author='Corey Oordt',
-    author_email='coordt@ngs.org',
+    author_email='webmaster@callowayproject.com',
     description=DESC,
     long_description=get_readme(),
     packages=find_packages(),
