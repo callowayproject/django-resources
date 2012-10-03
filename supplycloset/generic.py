@@ -1,7 +1,6 @@
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -34,24 +33,24 @@ class InlineGenericForeignKeyHiddenInput(forms.MultiWidget):
 class InlineGenericForeignKeyField(forms.MultiValueField):
     """
     A basic integer field that deals with validating the given value to a
-    given parent instance in an inline.
+    given source instance in an inline.
     """
     widget = InlineGenericForeignKeyHiddenInput
     hidden_widget = InlineGenericForeignKeyHiddenInput
 
     default_error_messages = {
         'invalid_choice': _('The inline generic foreign key did not match the ' \
-                            'parent instance.'),
+                            'source instance.'),
         'invalid_type': _('The inline generic foregin key did not get a list of' \
                           ' values.')
     }
 
-    def __init__(self, parent_instance, *args, **kwargs):
-        self.parent_instance = parent_instance
-        self.content_type = ContentType.objects.get_for_model(parent_instance)
-        self.object_id = parent_instance.pk
+    def __init__(self, source_instance, *args, **kwargs):
+        self.source_instance = source_instance
+        self.content_type = ContentType.objects.get_for_model(source_instance)
+        self.object_id = source_instance.pk
         fields = (
-            forms.models.InlineForeignKeyField(parent_instance, required=False),
+            forms.models.InlineForeignKeyField(source_instance, required=False),
             forms.IntegerField(widget=forms.HiddenInput, required=False),
         )
         kwargs['initial'] = "%s-%s" % (self.content_type.pk, self.object_id)
@@ -124,10 +123,10 @@ class GenericM2MInlineFormSet(BaseModelFormSet):
         return form
 
     def save_new(self, form, commit=True):
-        # Use commit=False so we can assign the parent key afterwards, then
+        # Use commit=False so we can assign the source key afterwards, then
         # save the object.
         obj = form.save(commit=False)
-        obj.parent = form.fields['parent'].parent_instance
+        obj.source = form.fields['source'].source_instance
         obj.object = form.cleaned_data['object_type'].get_object_for_this_type(
             id=form.cleaned_data['object_id']
         )
@@ -189,19 +188,22 @@ class GenericM2MInlineFormSet(BaseModelFormSet):
         return super(GenericM2MInlineFormSet, self).get_unique_error_message(unique_check)
 
 
-def genericm2m_inlineformset_factory(parent_model, model, form=forms.ModelForm,
+def genericm2m_inlineformset_factory(source_model, model, form=forms.ModelForm,
                           formset=GenericM2MInlineFormSet, fk_name=None,
-                          fields=None, exclude=None,
-                          extra=3, can_order=True, can_delete=True, max_num=None,
+                          fields=None, exclude=None, extra=3, can_order=True,
+                          can_delete=True, max_num=None,
                           formfield_callback=None):
     """
     Returns an ``InlineFormSet`` for the given kwargs.
 
     You must provide ``fk_name`` if ``model`` has more than one ``ForeignKey``
-    to ``parent_model``.
+    to ``source_model``.
     """
-    fk = generic.GenericRelation(parent_model, verbose_name='parent', related_name='related')
-    fk.name = 'parent'
+    fk = generic.GenericRelation(
+        source_model,
+        verbose_name='source',
+        related_name='related')
+    fk.name = 'source'
     kwargs = {
         'form': form,
         'formfield_callback': formfield_callback,
@@ -215,7 +217,7 @@ def genericm2m_inlineformset_factory(parent_model, model, form=forms.ModelForm,
     }
     FormSet = forms.models.modelformset_factory(model, **kwargs)
     FormSet.fk = fk
-    FormSet.parent_type_field = 'parent_type'
+    FormSet.source_type_field = 'source_type'
     return FormSet
 
 
@@ -224,7 +226,7 @@ class GFKOptimizedQuerySet(QuerySet):
         # pop the gfk_field from the kwargs if its passed in explicitly
         self._gfk_field = kwargs.pop('gfk_field', None)
 
-        # call the parent class' initializer
+        # call the source class' initializer
         super(GFKOptimizedQuerySet, self).__init__(*args, **kwargs)
 
     def _clone(self, *args, **kwargs):

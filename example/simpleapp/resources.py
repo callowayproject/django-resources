@@ -1,7 +1,9 @@
-from supplycloset import BaseResource, resource_list
-from .models import Food, Beverage, Person
-from supplycloset.serializer import Serializer
 import json
+
+from supplycloset import BaseResource, resource_list
+from supplycloset.serializer import Serializer
+
+from .models import Food, Beverage, Person
 
 
 class ExampleResource(BaseResource):
