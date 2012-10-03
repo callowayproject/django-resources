@@ -109,7 +109,7 @@ INSTALLED_APPS = (
     # 'django.contrib.messages',
     # 'django.contrib.staticfiles',
     'simpleapp',
-    'supplycloset',
+    'contentrelations',
 )
 
 SUPPLYCLOSET_SETTINGS = {

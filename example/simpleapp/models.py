@@ -1,5 +1,5 @@
 from django.db import models
-from supplycloset.related import RelatedObjectsDescriptor
+from contentrelations.related import RelatedObjectsDescriptor
 
 
 class Food(models.Model):

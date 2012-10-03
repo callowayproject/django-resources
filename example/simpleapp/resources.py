@@ -1,7 +1,7 @@
 import json
 
-from supplycloset import BaseResource, resource_list
-from supplycloset.serializer import Serializer
+from contentrelations import BaseResource, resource_list
+from contentrelations.serializer import Serializer
 
 from .models import Food, Beverage, Person
 
