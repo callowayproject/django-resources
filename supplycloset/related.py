@@ -37,7 +37,6 @@ class RelatedResource(models.Model):
     # ACTUAL RELATED OBJECT:
     object_type = models.ForeignKey(ContentType,
         related_name="related_objects",)
-        # limit_choices_to=resource_list.content_types_lookup())
     object_id = models.IntegerField(db_index=True)
     object = GenericForeignKey(
         ct_field="object_type",

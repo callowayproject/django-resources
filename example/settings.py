@@ -83,13 +83,13 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'g2_39yupn*6j4p*cg2%w643jiq-1n_annua*%i8+rq0dx9p=$n'
 
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-)
+# MIDDLEWARE_CLASSES = (
+#     'django.middleware.common.CommonMiddleware',
+#     'django.contrib.sessions.middleware.SessionMiddleware',
+#     'django.middleware.csrf.CsrfViewMiddleware',
+#     'django.contrib.auth.middleware.AuthenticationMiddleware',
+#     'django.contrib.messages.middleware.MessageMiddleware',
+# )
 
 ROOT_URLCONF = 'example.urls'
 
@@ -106,8 +106,8 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    # 'django.contrib.messages',
+    # 'django.contrib.staticfiles',
     'simpleapp',
     'supplycloset',
 )

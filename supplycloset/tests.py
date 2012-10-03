@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 
-class resourcesTest(TestCase):
+class supplyclosetTest(TestCase):
     """
     Tests for django-resources
     """
