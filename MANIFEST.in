@@ -1,7 +1,7 @@
 recursive-include doc_src *
 recursive-include docs *
 
-recursive-include contentrelations/media *
+recursive-include contentrelations/static *
 recursive-include contentrelations/templates *
 
 include LICENSE
