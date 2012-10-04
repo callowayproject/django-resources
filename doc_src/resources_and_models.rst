@@ -213,3 +213,58 @@ And lastly, just like before, its possible to query on the class to get all the
     >>> Food.related_beverages.all()
     [<RelatedBeverage: RelatedBeverage object>]
 
+Adding to the admin
+===================
+
+Add :py:class:`RelatedInline` to your inlines:
+
+.. code-block:: python
+
+    from contentrelations.admin import RelatedInline
+
+    class SimpleAdmin(admin.ModelAdmin):
+        list_display = ('name', )
+        search_fields = ('name',)
+        inlines = [RelatedInline]
+
+If you changed the name from the default ``related``, you need to give the inline a bit of help so it can find the name of the related field.
+
+.. code-block:: python
+
+from contentrelations.admin import RelatedInline
+
+    class AlternateInline(RelatedInline):
+        rel_name = 'resources'
+
+    class AnotherAdmin(admin.ModelAdmin):
+        list_display = ('name', )
+        search_fields = ('name',)
+        inlines = [AlternateInline]
+
+To change the name of the inline fieldset:
+
+.. code-block:: python
+
+from contentrelations.admin import RelatedInline
+
+    class AlternateInline(RelatedInline):
+        verbose_name_plural = "Resource Carousel"
+
+    class AnotherAdmin(admin.ModelAdmin):
+        list_display = ('name', )
+        search_fields = ('name',)
+        inlines = [AlternateInline]
+
+To exclude either the ``relation_type`` or ``order`` field you have to include the excluded fields in the parent class:
+
+.. code-block:: python
+
+from contentrelations.admin import RelatedInline
+
+    class AlternateInline(RelatedInline):
+        exclude = ('source_type', 'source_id', 'relation_type')
+
+    class AnotherAdmin(admin.ModelAdmin):
+        list_display = ('name', )
+        search_fields = ('name',)
+        inlines = [AlternateInline]
