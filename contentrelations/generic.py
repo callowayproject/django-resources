@@ -92,10 +92,9 @@ class GenericM2MInlineFormSet(BaseModelFormSet):
         else:
             self.instance = instance
         self.save_as_new = save_as_new
-        self.rel_name = 'related'
         if queryset is None:
             queryset = self.model._default_manager
-        qs = self.instance.related.all()
+        qs = getattr(self.instance, self.rel_name).all()
         super(GenericM2MInlineFormSet, self).__init__(data, files,
                                           prefix=prefix, queryset=qs, **kwargs)
 
@@ -202,7 +201,7 @@ def genericm2m_inlineformset_factory(source_model, model, form=forms.ModelForm,
     fk = generic.GenericRelation(
         source_model,
         verbose_name='source',
-        related_name='related')
+        related_name=fk_name or 'related')
     fk.name = 'source'
     kwargs = {
         'form': form,

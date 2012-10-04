@@ -19,7 +19,9 @@ class GenericCollectionInlineModelAdmin(admin.options.InlineModelAdmin):
         self.content_types = "{%s}" % ",".join(elements)
 
     def get_formset(self, request, obj=None, **kwargs):
-        """Returns a BaseInlineFormSet class for use in admin add/change views."""
+        """
+        Returns a BaseInlineFormSet class for use in admin add/change views.
+        """
         if self.declared_fieldsets:
             fields = flatten_fieldsets(self.declared_fieldsets)
         else:
@@ -62,6 +64,16 @@ class GenericCollectionTabularInline(GenericCollectionInlineModelAdmin):
 class RelatedInline(GenericCollectionTabularInline):
     model = RelatedResource
     exclude = ('source_type', 'source_id')
+
+    def get_formset(self, request, obj=None, **kwargs):
+        """
+        Adds a rel_name attribute to the formset for reverse lookups
+        """
+        result = super(RelatedInline, self).get_formset(request, obj, **kwargs)
+        result.rel_name = getattr(self, 'rel_name', 'related')
+        name = getattr(self, 'verbose_name_plural', result.model._meta.verbose_name_plural)
+        result.verbose_name_plural = name
+        return result
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         from .base import resource_list

@@ -112,11 +112,11 @@ INSTALLED_APPS = (
     'contentrelations',
 )
 
-SUPPLYCLOSET_SETTINGS = {
+CONTENTRELATIONS_SETTINGS = {
     # 'KEY_IMAGE_MODEL': 'simpleapp.KeyImageShim',
     'RESOURCE_TYPE_CHOICES': (('maps', 'Maps'), ('av', 'Audio & Video'), ('image', 'Image')),
     'SETUP_RESOURCES': [
-        'simpleapp.Person.related',
+        'simpleapp.Person.resources',
         #'simpleapp.Food.related',
         'simpleapp.Beverage.related'
     ],
