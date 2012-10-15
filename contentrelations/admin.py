@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.util import flatten_fieldsets
 from functools import partial
 
-from .models import RelatedResource
+from .related import RelatedResource
 from .generic import genericm2m_inlineformset_factory
 
 
