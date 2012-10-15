@@ -114,7 +114,7 @@ class ResourceList(object):
                 #raise AlreadyRegistered('The model %s is already registered' % model.__name__)
                 return
             self._registry[model] = resource_class
-            model_str = "%s.%s" % (model._meta.app_label, model.__name__.lower())
+            model_str = "%s.%s" % (model._meta.app_label, model.__name__)
             if model_str in SETUP_MODELS:
                 for field in SETUP_MODELS[model_str]:
                     monkey_patch(model, field)
