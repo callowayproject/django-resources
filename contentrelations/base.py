@@ -97,6 +97,9 @@ class ResourceList(object):
 
     def register(self, model_or_iterable, resource_class=None):
         from django.db.models.base import ModelBase
+        from .settings import SETUP_MODELS
+        from .registration import monkey_patch
+
         if resource_class is None:
             resource_class = BaseResource
         if isinstance(model_or_iterable, ModelBase):
@@ -111,6 +114,10 @@ class ResourceList(object):
                 #raise AlreadyRegistered('The model %s is already registered' % model.__name__)
                 return
             self._registry[model] = resource_class
+            model_str = "%s.%s" % (model._meta.app_label, model.__name__.lower())
+            if model_str in SETUP_MODELS:
+                for field in SETUP_MODELS[model_str]:
+                    monkey_patch(model, field)
 
     def get_for_instance(self, instance):
         """

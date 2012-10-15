@@ -3,6 +3,9 @@ from .settings import SETUP_MODELS
 
 
 def monkey_patch(model_class, name='related', descriptor=None):
+    if getattr(model_class, name, False):
+        print "%s already has an attribute named %s" % (model_class.__name__, name)
+        return False
     rel_obj = descriptor or RelatedObjectsDescriptor()
     rel_obj.contribute_to_class(model_class, name)
     setattr(model_class, name, rel_obj)

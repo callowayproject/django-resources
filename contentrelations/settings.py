@@ -1,7 +1,6 @@
 from collections import defaultdict
 
 from django.conf import settings
-from django.db.models import get_model
 
 DEFAULT_SETTINGS = {
     'SETUP_RESOURCES': [],
@@ -18,8 +17,7 @@ if USER_SETTINGS['SETUP_RESOURCES']:
             field_name = 'related'
         else:
             field_name = bits[2]
-        model = get_model(*bits[:2])
-        SETUP_MODELS[model].append(field_name)
+        SETUP_MODELS['.'.join(bits[:2])].append(field_name)
 
 
 globals().update(USER_SETTINGS)
