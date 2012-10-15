@@ -90,7 +90,10 @@ class ResourceList(object):
             relations.append(
                 Q(app_label=i._meta.app_label, model=i._meta.object_name.lower())
             )
-        return reduce(lambda x, y: x | y, relations)
+        if relations:
+            return reduce(lambda x, y: x | y, relations)
+        else:
+            return relations
 
     def register(self, model_or_iterable, resource_class=None):
         from django.db.models.base import ModelBase
