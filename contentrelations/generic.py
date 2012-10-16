@@ -7,6 +7,33 @@ from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.forms.models import BaseModelFormSet
 from django.utils.text import capfirst
+from django.conf import settings
+from django.utils.safestring import mark_safe
+from django.utils.html import escape
+
+from contentrelations.settings import JS_PREFIX
+
+
+class GenericRawIdWidget(forms.TextInput):
+    def __init__(self, attrs=None):
+        ctypes = ContentType.objects.all().order_by('id').values_list('id', 'app_label', 'model')
+        elements = ["%s: '%s/%s'" % (x, y, z) for x, y, z in ctypes]
+        self.content_types = "{%s}" % ", ".join(elements)
+        super(GenericRawIdWidget, self).__init__(attrs)
+
+    def render(self, name, value, attrs=None):
+        if attrs is None:
+            attrs = {}
+        if 'class' not in attrs:
+            attrs['class'] = 'vGenericRawIdAdminField'  # The JavaScript looks for this hook.
+        output = [super(GenericRawIdWidget, self).render(name, value, attrs)]
+        output.append('<a id="lookup_id_%(name)s" class="related-lookup" onclick="return showGenericRelatedObjectLookupPopup(this, %(contenttypes)s);" href="#">' %
+            {'name': name, 'contenttypes': self.content_types})
+        output.append('&nbsp;<img src="%simg/admin/selector-search.gif" width="16" height="16" alt="%s" /></a>' % (settings.ADMIN_MEDIA_PREFIX, _('Lookup')))
+        return mark_safe(u''.join(output))
+
+    class Media:
+        js = ('%scontentrelations/js/genericlookup.js' % JS_PREFIX, )
 
 
 class InlineGenericForeignKeyHiddenInput(forms.MultiWidget):
