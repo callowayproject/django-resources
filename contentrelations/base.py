@@ -26,6 +26,7 @@ class BaseResource(object):
         gau = getattr(self.instance, 'get_absolute_url', '')
         if gau:
             return gau()
+        return ''
 
     def __getattr__(self, name):
         """
