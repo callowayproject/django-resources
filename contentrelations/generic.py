@@ -3,13 +3,17 @@ from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django import forms
 from django.forms.models import BaseModelFormSet
 from django.utils.text import capfirst
 from django.conf import settings
 from django.utils.safestring import mark_safe
-from django.utils.html import escape
+try:
+    from django.contrib.admin.templatetags.admin_static import static
+except ImportError:
+    def static(somestring):
+        return "%s%s" % (settings.ADMIN_MEDIA_PREFIX, somestring)
 
 from contentrelations.settings import JS_PREFIX
 
@@ -29,7 +33,7 @@ class GenericRawIdWidget(forms.TextInput):
         output = [super(GenericRawIdWidget, self).render(name, value, attrs)]
         output.append('<a id="lookup_id_%(name)s" class="related-lookup" onclick="return showGenericRelatedObjectLookupPopup(this, %(contenttypes)s);" href="#">' %
             {'name': name, 'contenttypes': self.content_types})
-        output.append('&nbsp;<img src="%simg/admin/selector-search.gif" width="16" height="16" alt="%s" /></a>' % (settings.ADMIN_MEDIA_PREFIX, _('Lookup')))
+        output.append('&nbsp;<img src="%s" width="16" height="16" alt="%s" /></a>' % (static('admin/img/selector-search.gif'), _('Lookup')))
         return mark_safe(u''.join(output))
 
     class Media:
