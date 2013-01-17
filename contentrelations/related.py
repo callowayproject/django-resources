@@ -204,3 +204,8 @@ class RelatedObjectsDescriptor(object):
         else:
             query = {}
         return self.related_model._default_manager.filter(**query)
+
+
+class ReverseRelatedObjectsDescriptor(RelatedObjectsDescriptor):
+    def __init__(self, model=None, from_field='object', to_field='source'):
+        super(ReverseRelatedObjectsDescriptor, self).__init__(model, from_field, to_field)

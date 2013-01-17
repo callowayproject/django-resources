@@ -100,6 +100,7 @@ class ResourceList(object):
         from django.db.models.base import ModelBase
         from .settings import SETUP_MODELS
         from .registration import monkey_patch
+        from .related import ReverseRelatedObjectsDescriptor
 
         if resource_class is None:
             resource_class = BaseResource
@@ -116,6 +117,7 @@ class ResourceList(object):
                 return
             self._registry[model] = resource_class
             model_str = "%s.%s" % (model._meta.app_label, model.__name__)
+            monkey_patch(model, 'related_from', ReverseRelatedObjectsDescriptor())
             if model_str in SETUP_MODELS:
                 for field in SETUP_MODELS[model_str]:
                     monkey_patch(model, field)
@@ -124,8 +126,11 @@ class ResourceList(object):
         """
         Return the registered resource instance for the instance passed
         """
-        resource_class = self._registry[instance.__class__]
-        return resource_class(instance)
+        try:
+            resource_class = self._registry[instance.__class__]
+            return resource_class(instance)
+        except KeyError:
+            return None
 
     def __getitem__(self, key):
         """
