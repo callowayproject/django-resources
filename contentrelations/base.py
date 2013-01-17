@@ -1,4 +1,5 @@
 from django.core.exceptions import ImproperlyConfigured
+from collections import defaultdict
 
 
 class AlreadyRegistered(Exception):
@@ -71,6 +72,18 @@ class ResourceIterator(list):
     def __iter__(self):
         for item in super(ResourceIterator, self).__iter__():
             yield resource_list.get_for_instance(item)
+
+    def group_by(self, attrname):
+        """
+        Return a dictionary where the keys are distinct values of attrname and
+        the values are a list of Resources
+        """
+        from django.template.defaultfilters import slugify
+        groups = defaultdict(list)
+        for item in self.__iter__():
+            val = slugify(getattr(item, attrname, 'unknown')).replace('-', '_')
+            groups[val].append(item)
+        return dict(groups)
 
 
 class ResourceList(object):
