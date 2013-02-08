@@ -4,7 +4,7 @@ from django.conf import settings
 
 DEFAULT_SETTINGS = {
     'SETUP_RESOURCES': [],
-    'JS_PREFIX': 'static/',
+    'JS_PREFIX': '',
 }
 
 USER_SETTINGS = DEFAULT_SETTINGS.copy()

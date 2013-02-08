@@ -1,11 +1,11 @@
 recursive-include doc_src *
 recursive-include docs *
 
-recursive-include contentrelations/static *
-recursive-include contentrelations/templates *
+recursive-include static *
+recursive-include templates *
 
 include LICENSE
 include README
 include *.txt
 
-prune example/
+prune example

@@ -32,6 +32,7 @@ setup(
     long_description=get_readme(),
     packages=find_packages(),
     include_package_data=True,
+    # package_data={'contentrelations': []},
     install_requires=read_file('requirements.txt'),
     classifiers=[
         'License :: OSI Approved :: Apache Software License',
