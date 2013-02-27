@@ -56,7 +56,7 @@ class RelatedResource(models.Model):
     objects = RelatedResourceManager()
 
     class Meta:
-        ordering = ('relation_source', 'source_type', 'source_id', 'order', )
+        ordering = ('order', )
 
     def __unicode__(self):
         out = u'%s related to %s' % (self.source, self.object)
