@@ -3,9 +3,9 @@ Allows connecting any object to any other object and unifying the interface
 between all the objects.
 """
 __version_info__ = {
-    'major': 0,
-    'minor': 5,
-    'micro': 1,
+    'major': 1,
+    'minor': 0,
+    'micro': 0,
     'releaselevel': 'final',
     'serial': 1
 }
