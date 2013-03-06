@@ -110,18 +110,17 @@ class ResourceList(object):
             return relations
 
     def register(self, model_or_iterable, resource_class=None):
-        from django.db.models.base import ModelBase
         from .settings import SETUP_MODELS
         from .registration import monkey_patch
         from .related import ReverseRelatedObjectsDescriptor
 
         if resource_class is None:
             resource_class = BaseResource
-        if isinstance(model_or_iterable, ModelBase):
+        if not isinstance(model_or_iterable, (list, tuple)):
             model_or_iterable = [model_or_iterable]
 
         for model in model_or_iterable:
-            if model._meta.abstract:
+            if hasattr(model, '_meta') and model._meta.abstract:
                 raise ImproperlyConfigured('The model %s is abstract, so it '
                       'cannot be registered with admin.' % model.__name__)
 
@@ -129,11 +128,12 @@ class ResourceList(object):
                 #raise AlreadyRegistered('The model %s is already registered' % model.__name__)
                 return
             self._registry[model] = resource_class
-            model_str = "%s.%s" % (model._meta.app_label, model.__name__)
             monkey_patch(model, 'related_from', ReverseRelatedObjectsDescriptor())
-            if model_str in SETUP_MODELS:
-                for field in SETUP_MODELS[model_str]:
-                    monkey_patch(model, field)
+            if hasattr(model, '_meta'):
+                model_str = "%s.%s" % (model._meta.app_label, model.__name__)
+                if model_str in SETUP_MODELS:
+                    for field in SETUP_MODELS[model_str]:
+                        monkey_patch(model, field)
 
     def get_for_instance(self, instance):
         """
