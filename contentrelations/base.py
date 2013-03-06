@@ -21,7 +21,10 @@ class BaseResource(object):
         self.instance = instance
 
     def get_resource_name(self):
-        return self.instance._meta.verbose_name
+        if hasattr(self.instance, '_meta'):
+            return self.instance._meta.verbose_name
+        else:
+            return self.instance.__class__.__name__
 
     def get_url(self):
         gau = getattr(self.instance, 'get_absolute_url', '')
@@ -101,9 +104,10 @@ class ResourceList(object):
         from django.db.models import Q
         relations = []
         for i in self._registry.keys():
-            relations.append(
-                Q(app_label=i._meta.app_label, model=i._meta.object_name.lower())
-            )
+            if hasattr(i, '_meta'):
+                relations.append(
+                    Q(app_label=i._meta.app_label, model=i._meta.object_name.lower())
+                )
         if relations:
             return reduce(lambda x, y: x | y, relations)
         else:
