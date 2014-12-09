@@ -5,7 +5,7 @@ between all the objects.
 __version_info__ = {
     'major': 1,
     'minor': 1,
-    'micro': 0,
+    'micro': 1,
     'releaselevel': 'final',
     'serial': 1
 }
@@ -25,7 +25,7 @@ __version__ = get_version()
 
 try:
     import django
-    from .base import resource_list, BaseResource
+    from .base import resource_list, BaseResource  # NOQA
 
     if django.VERSION[1] > 3:
         def discover(app):
