@@ -5,6 +5,7 @@ from django.conf import settings
 DEFAULT_SETTINGS = {
     'SETUP_RESOURCES': [],
     'JS_PREFIX': '',
+    'SKIP_APPS': []
 }
 
 USER_SETTINGS = DEFAULT_SETTINGS.copy()

@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Model Reference &mdash; django-contentrelations 0.3.1 documentation</title>
+    <title>Model Reference &mdash; django-contentrelations 1.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.1',
+        VERSION:     '1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,14 +24,14 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="django-contentrelations 0.3.1 documentation" href="../index.html" />
+    <link rel="top" title="django-contentrelations 1.1 documentation" href="../index.html" />
     <link rel="up" title="Reference" href="index.html" />
     <link rel="next" title="Resources" href="resources.html" />
     <link rel="prev" title="Settings" href="settings.html" /> 
   </head>
   <body>
 <div id="docstitle">
-	<p>django-contentrelations 0.3.1 documentation</p>
+	<p>django-contentrelations 1.1 documentation</p>
 </div>
 <div id="header">
 	<div id="title"><h1>Model Reference</h1></div>
@@ -91,119 +91,6 @@
             
   <div class="section" id="model-reference">
 <h1>Model Reference<a class="headerlink" href="#model-reference" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="slide">
-<h2>Slide<a class="headerlink" href="#slide" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="Slide">
-<em class="property">class </em><tt class="descname">Slide</tt><a class="headerlink" href="#Slide" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
-<dt id="Slide.object_id">
-<tt class="descname">object_id</tt><a class="headerlink" href="#Slide.object_id" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">IntegerField</span></tt></p>
-<p>Part of the generic relation for the resource this slide is augmenting.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.content_type">
-<tt class="descname">content_type</tt><a class="headerlink" href="#Slide.content_type" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">ForeignKey</span></tt> <tt class="docutils literal"><span class="pre">(django.contrib.contenttypes.models.ContentType)</span></tt></p>
-<p>Part of the generic relation for the resource this slide is augmenting.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.content_object">
-<tt class="descname">content_object</tt><a class="headerlink" href="#Slide.content_object" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">GenericForeginKey</span></tt></p>
-<p>Part of the generic relation for the resource this slide is augmenting.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.resource_type">
-<tt class="descname">resource_type</tt><a class="headerlink" href="#Slide.resource_type" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">CharField</span></tt> <tt class="docutils literal"><span class="pre">(50)</span></tt></p>
-<p>An override of the <tt class="docutils literal"><span class="pre">content_object</span></tt>&#8216;s resource type. Choices are displayed if specified in RESOURCE_TYPE_CHOICES. It will use the <tt class="docutils literal"><span class="pre">content_object</span></tt>&#8216;s mapped resource type if blank.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.title">
-<tt class="descname">title</tt><a class="headerlink" href="#Slide.title" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">CharField</span></tt> <tt class="docutils literal"><span class="pre">(100)</span></tt></p>
-<p>An override of the title of the <tt class="docutils literal"><span class="pre">content_object</span></tt>. It will use the <tt class="docutils literal"><span class="pre">content_object</span></tt>&#8216;s mapped title if blank.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.description">
-<tt class="descname">description</tt><a class="headerlink" href="#Slide.description" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">TextField</span></tt></p>
-<p>An override of the description of the <tt class="docutils literal"><span class="pre">content_object</span></tt>. It will use the <tt class="docutils literal"><span class="pre">content_object</span></tt>&#8216;s mapped description if blank.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.key_image_custom">
-<tt class="descname">key_image_custom</tt><a class="headerlink" href="#Slide.key_image_custom" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">FileField</span></tt></p>
-<p>An override of the key image of the <tt class="docutils literal"><span class="pre">content_object</span></tt>. It will use the <tt class="docutils literal"><span class="pre">content_object</span></tt>&#8216;s mapped key image if blank.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.key_image_width">
-<tt class="descname">key_image_width</tt><a class="headerlink" href="#Slide.key_image_width" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>Read only</strong> <tt class="xref py py-class docutils literal"><span class="pre">IntegerField</span></tt></p>
-<p>Automatically set to the width of <tt class="docutils literal"><span class="pre">key_image_custom</span></tt> image when uploaded.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.key_image_height">
-<tt class="descname">key_image_height</tt><a class="headerlink" href="#Slide.key_image_height" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>Read only</strong> <tt class="xref py py-class docutils literal"><span class="pre">IntegerField</span></tt></p>
-<p>Automatically set to the height of <tt class="docutils literal"><span class="pre">key_image_custom</span></tt> image when uploaded.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.key_image_related">
-<tt class="descname">key_image_related</tt><a class="headerlink" href="#Slide.key_image_related" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">ForeignKey</span></tt> <tt class="docutils literal"><span class="pre">(</span></tt> <a class="reference internal" href="settings.html#key-image-model-setting"><em>KEY_IMAGE_MODEL</em></a> <tt class="docutils literal"><span class="pre">)</span></tt></p>
-<p>An override of the key image of the <tt class="docutils literal"><span class="pre">content_object</span></tt> using a related model as defined in <a class="reference internal" href="settings.html#key-image-model-setting"><em>KEY_IMAGE_MODEL</em></a>. It will use the <tt class="docutils literal"><span class="pre">content_object</span></tt>&#8216;s mapped key image if blank.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.credit">
-<tt class="descname">credit</tt><a class="headerlink" href="#Slide.credit" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">CharField</span></tt> <tt class="docutils literal"><span class="pre">(255)</span></tt></p>
-<p>An override of the credit of the <tt class="docutils literal"><span class="pre">content_object</span></tt>. It will use the <tt class="docutils literal"><span class="pre">content_object</span></tt>&#8216;s mapped credit if blank.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.url">
-<tt class="descname">url</tt><a class="headerlink" href="#Slide.url" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">CharField</span></tt> <tt class="docutils literal"><span class="pre">(255)</span></tt></p>
-<p>An override of the URL of the <tt class="docutils literal"><span class="pre">content_object</span></tt>. It will use the <tt class="docutils literal"><span class="pre">content_object</span></tt>&#8216;s mapped URL if blank.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.citation">
-<tt class="descname">citation</tt><a class="headerlink" href="#Slide.citation" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">CharField</span></tt> <tt class="docutils literal"><span class="pre">(255)</span></tt></p>
-<p>An override of the citation of the <tt class="docutils literal"><span class="pre">content_object</span></tt>. It will use the <tt class="docutils literal"><span class="pre">content_object</span></tt>&#8216;s mapped citation if blank.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.notes">
-<tt class="descname">notes</tt><a class="headerlink" href="#Slide.notes" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">TextField</span></tt></p>
-<p>An override of the notes of the <tt class="docutils literal"><span class="pre">content_object</span></tt>. It will use the <tt class="docutils literal"><span class="pre">content_object</span></tt>&#8216;s mapped notes if blank.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Slide.internal_ref">
-<tt class="descname">internal_ref</tt><a class="headerlink" href="#Slide.internal_ref" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="xref py py-class docutils literal"><span class="pre">CharField</span></tt> <tt class="docutils literal"><span class="pre">(255)</span></tt></p>
-<p>An override of the internal_ref of the <tt class="docutils literal"><span class="pre">content_object</span></tt>. It will use the <tt class="docutils literal"><span class="pre">content_object</span></tt>&#8216;s mapped internal_ref if blank.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 <div class="section" id="relatedresource">
 <h2>RelatedResource<a class="headerlink" href="#relatedresource" title="Permalink to this headline">¶</a></h2>
 <dl class="class">

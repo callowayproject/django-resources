@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Linking Resources to other models &mdash; django-contentrelations 0.3.1 documentation</title>
+    <title>Linking Resources to other models &mdash; django-contentrelations 1.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3.1',
+        VERSION:     '1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,13 +24,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="django-contentrelations 0.3.1 documentation" href="index.html" />
+    <link rel="top" title="django-contentrelations 1.1 documentation" href="index.html" />
     <link rel="next" title="Reference" href="reference/index.html" />
     <link rel="prev" title="Serializing Resources" href="serializing_resources.html" /> 
   </head>
   <body>
 <div id="docstitle">
-	<p>django-contentrelations 0.3.1 documentation</p>
+	<p>django-contentrelations 1.1 documentation</p>
 </div>
 <div id="header">
 	<div id="title"><h1>Linking Resources to other models</h1></div>
@@ -309,50 +309,41 @@ a Person to the &#8220;related_beverages&#8221;:</p>
 </pre></div>
 </div>
 <p>If you changed the name from the default <tt class="docutils literal"><span class="pre">related</span></tt>, you need to give the inline a bit of help so it can find the name of the related field.</p>
-<div class="highlight-python"><div class="highlight"><pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">contentrelations.admin</span> <span class="kn">import</span> <span class="n">RelatedInline</span>
+
+    <span class="k">class</span> <span class="nc">AlternateInline</span><span class="p">(</span><span class="n">RelatedInline</span><span class="p">):</span>
+        <span class="n">rel_name</span> <span class="o">=</span> <span class="s">&#39;resources&#39;</span>
+
+    <span class="k">class</span> <span class="nc">AnotherAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+        <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="p">)</span>
+        <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,)</span>
+        <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">AlternateInline</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>from contentrelations.admin import RelatedInline</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>class AlternateInline(RelatedInline):</dt>
-<dd>rel_name = &#8216;resources&#8217;</dd>
-<dt>class AnotherAdmin(admin.ModelAdmin):</dt>
-<dd>list_display = (&#8216;name&#8217;, )
-search_fields = (&#8216;name&#8217;,)
-inlines = [AlternateInline]</dd>
-</dl>
-</div></blockquote>
 <p>To change the name of the inline fieldset:</p>
-<div class="highlight-python"><div class="highlight"><pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">contentrelations.admin</span> <span class="kn">import</span> <span class="n">RelatedInline</span>
+
+    <span class="k">class</span> <span class="nc">AlternateInline</span><span class="p">(</span><span class="n">RelatedInline</span><span class="p">):</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;Resource Carousel&quot;</span>
+
+    <span class="k">class</span> <span class="nc">AnotherAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+        <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="p">)</span>
+        <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,)</span>
+        <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">AlternateInline</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>from contentrelations.admin import RelatedInline</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>class AlternateInline(RelatedInline):</dt>
-<dd>verbose_name_plural = &#8220;Resource Carousel&#8221;</dd>
-<dt>class AnotherAdmin(admin.ModelAdmin):</dt>
-<dd>list_display = (&#8216;name&#8217;, )
-search_fields = (&#8216;name&#8217;,)
-inlines = [AlternateInline]</dd>
-</dl>
-</div></blockquote>
 <p>To exclude either the <tt class="docutils literal"><span class="pre">relation_type</span></tt> or <tt class="docutils literal"><span class="pre">order</span></tt> field you have to include the excluded fields in the parent class:</p>
-<div class="highlight-python"><div class="highlight"><pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">contentrelations.admin</span> <span class="kn">import</span> <span class="n">RelatedInline</span>
+
+    <span class="k">class</span> <span class="nc">AlternateInline</span><span class="p">(</span><span class="n">RelatedInline</span><span class="p">):</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;source_type&#39;</span><span class="p">,</span> <span class="s">&#39;source_id&#39;</span><span class="p">,</span> <span class="s">&#39;relation_type&#39;</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">AnotherAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+        <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="p">)</span>
+        <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,)</span>
+        <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">AlternateInline</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>from contentrelations.admin import RelatedInline</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>class AlternateInline(RelatedInline):</dt>
-<dd>exclude = (&#8216;source_type&#8217;, &#8216;source_id&#8217;, &#8216;relation_type&#8217;)</dd>
-<dt>class AnotherAdmin(admin.ModelAdmin):</dt>
-<dd>list_display = (&#8216;name&#8217;, )
-search_fields = (&#8216;name&#8217;,)
-inlines = [AlternateInline]</dd>
-</dl>
-</div></blockquote>
 </div>
 </div>
 

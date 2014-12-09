@@ -4,8 +4,8 @@ between all the objects.
 """
 __version_info__ = {
     'major': 1,
-    'minor': 0,
-    'micro': 2,
+    'minor': 1,
+    'micro': 0,
     'releaselevel': 'final',
     'serial': 1
 }
@@ -90,10 +90,11 @@ try:
 
         Copied from django.contrib.admin
         """
+        from .settings import SKIP_APPS
         from django.conf import settings
 
         for app in settings.INSTALLED_APPS:
-            if app != 'contentrelations':
+            if app != 'contentrelations' and app not in SKIP_APPS:
                 discover(app)
 
 except ImportError:
