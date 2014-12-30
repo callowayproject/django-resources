@@ -16,3 +16,14 @@ def get_resource(item):
     if resource is None:
         return item
     return resource
+
+
+@register.assignment_tag
+def group_resources(iterable, key):
+    """
+    Given an interable return a dict for each value of key and a list of
+    resources with that value
+    """
+    from contentrelations.base import ResourceIterator
+    resources = ResourceIterator(list(iterable))
+    return resources.group_by(key)

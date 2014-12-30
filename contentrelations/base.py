@@ -143,7 +143,10 @@ class ResourceList(object):
         """
         Return the registered resource instance for the instance passed
         """
+        from .related import RelatedResource
         try:
+            if isinstance(instance, RelatedResource):
+                instance = instance.object
             resource_class = self._registry[instance.__class__]
             return resource_class(instance)
         except KeyError:
