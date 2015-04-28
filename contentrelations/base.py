@@ -1,4 +1,6 @@
 from django.core.exceptions import ImproperlyConfigured
+from django.core.paginator import Paginator, Page
+from django.utils import six
 from collections import defaultdict
 
 
@@ -159,3 +161,25 @@ class ResourceList(object):
         return self._registry[key]
 
 resource_list = ResourceList()
+
+
+class ResourcePage(Page):
+    def __getitem__(self, index):
+        if not isinstance(index, (slice,) + six.integer_types):
+            raise TypeError
+        # The object_list is converted to a list so that if it was a QuerySet
+        # it won't be a database hit per __getitem__.
+        if not isinstance(self.object_list, list):
+            self.object_list = list(self.object_list)
+        return resource_list.get_for_instance(self.object_list[index])
+
+
+class ResourcePaginator(Paginator):
+    def _get_page(self, *args, **kwargs):
+        """
+        Returns an instance of a single page.
+
+        This hook can be used by subclasses to use an alternative to the
+        standard :cls:`Page` object.
+        """
+        return ResourcePage(*args, **kwargs)

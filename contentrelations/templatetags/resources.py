@@ -27,3 +27,16 @@ def group_resources(iterable, key):
     from contentrelations.base import ResourceIterator
     resources = ResourceIterator(list(iterable))
     return resources.group_by(key)
+
+
+@register.simple_tag
+def admin_url(obj):
+    """
+    Return the admin URL for the given object
+    """
+    if obj:
+        from django.core.urlresolvers import reverse
+        app_label = obj._meta.app_label
+        model_name = obj._meta.model_name
+        return reverse("admin:%s_%s_change" % (app_label, model_name), args=(obj.pk,))
+    return ''

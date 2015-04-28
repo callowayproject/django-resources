@@ -100,9 +100,18 @@ class RelatedObjectsDescriptor(object):
     def get_query_to(self, instance):
         return self.get_query_for_field(instance, self.to_field)
 
-    def contribute_to_class(self, cls, name):
+    def set_attributes_from_name(self, name):
         self.name = name
-        self.model_class = cls
+        self.concrete = False
+        self.verbose_name = self.name.replace('_', ' ')
+
+    def contribute_to_class(self, cls, name, virtual_only=False):
+        self.set_attributes_from_name(name)
+        self.model = cls
+        # if virtual_only:
+        #     cls._meta.add_virtual_field(self)
+        # else:
+        #     cls._meta.add_field(self)
         setattr(cls, self.name, self)
 
     def __get__(self, instance, cls=None):
@@ -199,7 +208,7 @@ class RelatedObjectsDescriptor(object):
 
     def all(self):
         if self.is_gfk(self.from_field):
-            ctype = ContentType.objects.get_for_model(self.model_class)
+            ctype = ContentType.objects.get_for_model(self.model)
             query = {self.from_field.ct_field: ctype}
         else:
             query = {}

@@ -232,7 +232,7 @@ def genericm2m_inlineformset_factory(source_model, model, form=forms.ModelForm,
     fk = generic.GenericRelation(
         source_model,
         verbose_name='source',
-        related_name=fk_name or 'related')
+        related_query_name=fk_name or 'related')
     fk.name = 'source'
     kwargs = {
         'form': form,

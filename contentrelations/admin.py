@@ -1,5 +1,4 @@
-from django.contrib import admin
-
+from django.contrib.contenttypes.admin import GenericInlineModelAdmin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.util import flatten_fieldsets
 from functools import partial
@@ -8,7 +7,7 @@ from .related import RelatedResource
 from .generic import genericm2m_inlineformset_factory
 
 
-class GenericCollectionInlineModelAdmin(admin.options.InlineModelAdmin):
+class GenericCollectionInlineModelAdmin(GenericInlineModelAdmin):
     ct_field = "content_type"
     ct_fk_field = "object_id"
 

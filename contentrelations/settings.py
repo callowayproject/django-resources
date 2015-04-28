@@ -21,5 +21,14 @@ if USER_SETTINGS['SETUP_RESOURCES']:
             field_name = bits[2]
         SETUP_MODELS['.'.join(bits[:2])].append(field_name)
 
+if USER_SETTINGS['SKIP_APPS'] is None:
+    USER_SETTINGS['SKIP_APPS'] = []
+elif isinstance(USER_SETTINGS['SKIP_APPS'], basestring):
+    USER_SETTINGS['SKIP_APPS'] = [USER_SETTINGS['SKIP_APPS']]
+
+if 'contentrelations' not in USER_SETTINGS['SKIP_APPS']:
+    previous = list(USER_SETTINGS['SKIP_APPS'])  # in case of tuple
+    previous.append('contentrelations')
+    USER_SETTINGS['SKIP_APPS'] = previous[:]
 
 globals().update(USER_SETTINGS)
