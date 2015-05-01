@@ -8,7 +8,7 @@ function showRelatedResourceLookupPopup(triggeringLink, ctArray) {
         return false;
     }
     var selectedItem = select.item(select.selectedIndex).value;
-    var href = triggeringLink.href.replace(/#/,'../../../'+ctArray[selectedItem]+"/");
+    var href = triggeringLink.href + '../../../'+ctArray[selectedItem] + "/";
     if (href.search(/\?/) >= 0) {
         href = href + '&pop=1';
     } else {
@@ -29,7 +29,7 @@ function showGenericRelatedObjectLookupPopup(triggeringLink, ctArray) {
         return false;
     }
     var selectedItem = select.item(select.selectedIndex).value;
-    var href = triggeringLink.href.replace(/#/,'../../../'+ctArray[selectedItem]+"/");
+    var href = triggeringLink.href + '../../../'+ctArray[selectedItem] + "/";
     if (href.search(/\?/) >= 0) {
         href = href + '&pop=1';
     } else {

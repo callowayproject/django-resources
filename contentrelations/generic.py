@@ -31,7 +31,7 @@ class GenericRawIdWidget(forms.TextInput):
         if 'class' not in attrs:
             attrs['class'] = 'vGenericRawIdAdminField'  # The JavaScript looks for this hook.
         output = [super(GenericRawIdWidget, self).render(name, value, attrs)]
-        output.append('<a id="lookup_id_%(name)s" class="related-lookup" onclick="return showGenericRelatedObjectLookupPopup(this, %(contenttypes)s);" href="#">' %
+        output.append('<a id="lookup_id_%(name)s" class="related-lookup" onclick="return showGenericRelatedObjectLookupPopup(this, %(contenttypes)s);" href=".">' %
             {'name': name, 'contenttypes': self.content_types})
         output.append('&nbsp;<img src="%s" width="16" height="16" alt="%s" /></a>' % (static('admin/img/selector-search.gif'), _('Lookup')))
         return mark_safe(u''.join(output))
@@ -70,9 +70,9 @@ class InlineGenericForeignKeyField(forms.MultiValueField):
     hidden_widget = InlineGenericForeignKeyHiddenInput
 
     default_error_messages = {
-        'invalid_choice': _('The inline generic foreign key did not match the ' \
+        'invalid_choice': _('The inline generic foreign key did not match the '
                             'source instance.'),
-        'invalid_type': _('The inline generic foregin key did not get a list of' \
+        'invalid_type': _('The inline generic foregin key did not get a list of'
                           ' values.')
     }
 
@@ -103,8 +103,8 @@ class InlineGenericForeignKeyField(forms.MultiValueField):
             if not isinstance(value, (tuple, list)):
                 raise ValidationError(self.error_messages['invalid_type'])
             if len(value) == 2 and \
-                int(value[0]) == self.content_type.pk and \
-                int(value[1]) == self.object_id:
+                    int(value[0]) == self.content_type.pk and \
+                    int(value[1]) == self.object_id:
                 return self.compress(value)
             else:
                 raise ValidationError(self.error_messages['invalid_choice'])
@@ -149,7 +149,7 @@ class GenericM2MInlineFormSet(BaseModelFormSet):
             form.data[form.add_prefix(self.fk.name)] = None
 
         # Set the fk value here so that the form can do it's validation.
-        #setattr(form.instance, self.fk.get_attname(), self.instance.pk)
+        # setattr(form.instance, self.fk.get_attname(), self.instance.pk)
         return form
 
     def save_new(self, form, commit=True):
@@ -245,7 +245,7 @@ def genericm2m_inlineformset_factory(source_model, model, form=forms.ModelForm,
         'exclude': exclude,
         'max_num': max_num,
     }
-    FormSet = forms.models.modelformset_factory(model, **kwargs)
+    FormSet = forms.models.modelformset_factory(model, **kwargs)  # NOQA
     FormSet.fk = fk
     FormSet.source_type_field = 'source_type'
     return FormSet
