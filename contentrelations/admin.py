@@ -1,6 +1,9 @@
 from django.contrib.contenttypes.admin import GenericInlineModelAdmin
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.admin.util import flatten_fieldsets
+try:
+    from django.contrib.admin.utils import flatten_fieldsets
+except ImportError:
+    from django.contrib.admin.util import flatten_fieldsets
 from functools import partial
 
 from .related import RelatedResource

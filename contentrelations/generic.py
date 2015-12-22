@@ -1,14 +1,16 @@
-from django.contrib.contenttypes.generic import GenericForeignKey
-from django.contrib.contenttypes import generic
-from django.contrib.contenttypes.models import ContentType
-from django.db.models.query import QuerySet
-from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext as _
 from django import forms
-from django.forms.models import BaseModelFormSet
-from django.utils.text import capfirst
 from django.conf import settings
+try:
+    from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+except ImportError:
+    from django.contrib.contenttypes.generic import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
+from django.db.models.query import QuerySet
+from django.forms.models import BaseModelFormSet
 from django.utils.safestring import mark_safe
+from django.utils.text import capfirst
+from django.utils.translation import ugettext as _
 try:
     from django.contrib.admin.templatetags.admin_static import static
 except ImportError:
@@ -29,17 +31,18 @@ class GenericRawIdWidget(forms.TextInput):
                 elements[x] = reverse("admin:%s_%s_changelist" % (y, z))
             except NoReverseMatch:
                 continue
-        self.content_types = "{%s}" % ",".join(["%s: '%s'" % (k, v) for k, v in elements.items()])
+        self.content_types = "{%s}" % ",".join(["'%s': '%s'" % (k, v) for k, v in elements.items()])
 
     def render(self, name, value, attrs=None):
         if attrs is None:
             attrs = {}
         if 'class' not in attrs:
-            attrs['class'] = 'vGenericRawIdAdminField'  # The JavaScript looks for this hook.
+            attrs['class'] = 'vGenericRawIdAdminField'
         output = [super(GenericRawIdWidget, self).render(name, value, attrs)]
-        output.append('<a id="lookup_id_%(name)s" class="related-lookup" onclick="return showGenericRelatedObjectLookupPopup(this, %(contenttypes)s)" href="#">' %
+        output.append('<a id="lookup_id_%(name)s" class="gen-related-lookup" data-contenttypes="%(contenttypes)s" href="#">' %
             {'name': name, 'contenttypes': self.content_types})
-        output.append('&nbsp;<img src="%s" width="16" height="16" alt="%s" /></a>' % (static('admin/img/selector-search.gif'), _('Lookup')))
+        output.append('&nbsp;<img src="%s" width="16" height="16" alt="%s" />' % (static('admin/img/selector-search.gif'), _('Lookup')))
+        output.append('</a>')
         return mark_safe(u''.join(output))
 
     class Media:
@@ -235,7 +238,7 @@ def genericm2m_inlineformset_factory(source_model, model, form=forms.ModelForm,
     You must provide ``fk_name`` if ``model`` has more than one ``ForeignKey``
     to ``source_model``.
     """
-    fk = generic.GenericRelation(
+    fk = GenericRelation(
         source_model,
         verbose_name='source',
         related_query_name=fk_name or 'related')

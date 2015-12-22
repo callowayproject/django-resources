@@ -8,11 +8,11 @@ function showRelatedResourceLookupPopup(triggeringLink, ctArray) {
         return false;
     }
     var selectedItem = select.item(select.selectedIndex).value;
-    var href = triggeringLink.href + '../../../'+ctArray[selectedItem] + "/";
+    var href = ctArray[selectedItem];
     if (href.search(/\?/) >= 0) {
-        href = href + '&pop=1';
+        href = href + '&_popup=1&_to_field=id';
     } else {
-        href = href + '?pop=1';
+        href = href + '?_popup=1&_to_field=id';
     }
     var win = window.open(href, name, 'height=500,width=800,resizable=yes,scrollbars=yes');
     win.focus();
@@ -29,13 +29,28 @@ function showGenericRelatedObjectLookupPopup(triggeringLink, ctArray) {
         return false;
     }
     var selectedItem = select.item(select.selectedIndex).value;
-    var href = triggeringLink.href + '../../../'+ctArray[selectedItem] + "/";
+    var href = ctArray[selectedItem];
     if (href.search(/\?/) >= 0) {
-        href = href + '&pop=1';
+        href = href + '&_popup=1&_to_field=id';
     } else {
-        href = href + '?pop=1';
+        href = href + '?_popup=1&_to_field=id';
     }
     var win = window.open(href, name, 'height=500,width=800,resizable=yes,scrollbars=yes');
     win.focus();
     return false;
 }
+
+(function($){
+    $(document).ready(function(){
+        $('a.gen-related-lookup').click(function(e) {
+            e.preventDefault();
+            var event = $.Event('django:gen-lookup-related');
+            var ctypes = $(this).data('contenttypes').replace(/'/g, '"');
+            var ctypesObj = JSON.parse(ctypes);
+            $(this).trigger(event);
+            if (!event.isDefaultPrevented()) {
+                showGenericRelatedObjectLookupPopup(this, ctypesObj);
+            }
+        });
+    })
+})(django.jQuery);

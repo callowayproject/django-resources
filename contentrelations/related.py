@@ -1,7 +1,10 @@
 from django.db.models import Q
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.generic import GenericForeignKey
+try:
+    from django.contrib.contenttypes.fields import GenericForeignKey
+except ImportError:
+    from django.contrib.contenttypes.generic import GenericForeignKey
 
 from .generic import GFKOptimizedQuerySet
 
