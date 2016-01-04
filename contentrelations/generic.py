@@ -115,6 +115,11 @@ class InlineGenericForeignKeyField(forms.MultiValueField):
                     int(value[0]) == self.content_type.pk and \
                     int(value[1]) == self.object_id:
                 return self.compress(value)
+            elif len(value) == 2 and \
+                    int(value[0]) == self.content_type.pk and \
+                    self.object_id is None:
+                # This is the case if you "save as new"
+                return self.compress(value)
             else:
                 raise ValidationError(self.error_messages['invalid_choice'])
         except Exception:
