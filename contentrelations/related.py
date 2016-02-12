@@ -14,14 +14,14 @@ class RelatedResourceManager(models.Manager):
         """
         Get all the items of the given content type related to this item.
         """
-        qs = self.get_query_set()
+        qs = self.get_queryset()
         return qs.filter(content_type__name=content_type, **kwargs)
 
     def get_relation_source(self, relation_source, **kwargs):
         """
         Get all the items of the given relation source to this item
         """
-        qs = self.get_query_set()
+        qs = self.get_queryset()
         return qs.filter(relation_source=relation_source, **kwargs)
 
 
@@ -121,7 +121,7 @@ class RelatedObjectsDescriptor(object):
         if instance is None:
             return self
 
-        ManagerClass = type(self.related_model._default_manager)
+        ManagerClass = type(self.related_model._default_manager)  # NOQA
         return self.create_manager(instance, ManagerClass)
 
     def __set__(self, instance, value):
@@ -146,12 +146,12 @@ class RelatedObjectsDescriptor(object):
         uses_gfk = self.is_gfk(rel_field)
 
         class RelatedManager(superclass):
-            def get_query_set(self):
+            def get_queryset(self):
                 if uses_gfk:
                     qs = GFKOptimizedQuerySet(self.model, gfk_field=rel_field)
                     return qs.filter(**(core_filters))
                 else:
-                    return superclass.get_query_set(self).filter(**(core_filters))
+                    return superclass.get_queryset(self).filter(**(core_filters))
 
             def add(self, *objs):
                 for obj in objs:
@@ -198,7 +198,7 @@ class RelatedObjectsDescriptor(object):
                 )
 
             def symmetrical(self):
-                return superclass.get_query_set(self).filter(
+                return superclass.get_queryset(self).filter(
                     Q(**rel_obj.get_query_from(instance)) |
                     Q(**rel_obj.get_query_to(instance))
                 ).distinct()
