@@ -24,7 +24,7 @@ class GenericCollectionInlineModelAdmin(GenericInlineModelAdmin):
                 elements[x] = reverse("admin:%s_%s_changelist" % (y, z))
             except NoReverseMatch:
                 continue
-        self.content_types = "{%s}" % ",".join(["%s: '%s'" % (k, v) for k, v in elements.items()])
+        self.content_types = "{%s}" % ",".join(["'%s': '%s'" % (k, v) for k, v in elements.items()])
 
     def get_formset(self, request, obj=None, **kwargs):
         """
