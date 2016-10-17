@@ -26,7 +26,7 @@ function showGenericRelatedObjectLookupPopup(triggeringLink, ctArray) {
         select;
     names = "#" + realName.replace(/object_id/, 'object_type');
     names += ",#" + realName.replace(/object_id/, 'content_type');
-    select = $(names).first()[0];
+    select = django.jQuery(names).first()[0];
     if (select.selectedIndex === 0) {
         alert("Select a content type first.");
         return false;
