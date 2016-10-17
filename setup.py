@@ -30,7 +30,7 @@ setup(
     author_email='webmaster@callowayproject.com',
     description=DESC,
     long_description=get_readme(),
-    packages=find_packages(),
+    packages=find_packages(exclude=('example', 'example.*', )),
     include_package_data=True,
     # package_data={'contentrelations': []},
     install_requires=read_file('requirements.txt'),

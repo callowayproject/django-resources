@@ -5,7 +5,7 @@ between all the objects.
 __version_info__ = {
     'major': 1,
     'minor': 3,
-    'micro': 2,
+    'micro': 4,
     'releaselevel': 'final',
     'serial': 1
 }
