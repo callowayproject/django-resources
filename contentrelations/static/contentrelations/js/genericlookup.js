@@ -20,10 +20,13 @@ function showRelatedResourceLookupPopup(triggeringLink, ctArray) {
 }
 
 function showGenericRelatedObjectLookupPopup(triggeringLink, ctArray) {
-    var realName = triggeringLink.id.replace(/^lookup_/, '');
-    var name = id_to_windowname(realName);
-    realName = realName.replace(/object_id/, 'content_type');
-    var select = document.getElementById(realName);
+    var realName = triggeringLink.id.replace(/^lookup_/, ''),
+        name = id_to_windowname(realName),
+        names,
+        select;
+    names = "#" + realName.replace(/object_id/, 'object_type');
+    names += ",#" + realName.replace(/object_id/, 'content_type');
+    select = $(names).first()[0];
     if (select.selectedIndex === 0) {
         alert("Select a content type first.");
         return false;
@@ -42,15 +45,23 @@ function showGenericRelatedObjectLookupPopup(triggeringLink, ctArray) {
 
 (function($){
     $(document).ready(function(){
-        $('a.gen-related-lookup').click(function(e) {
+        $('a.gen-related-lookup').unbind('click').click(function(e) {
             e.preventDefault();
-            var event = $.Event('django:gen-lookup-related');
-            var ctypes = $(this).data('contenttypes').replace(/'/g, '"');
-            var ctypesObj = JSON.parse(ctypes);
+            e.stopPropagation();
+            var event = $.Event('django:gen-lookup-related'),
+                ctypes = $(this).data('contenttypes'),
+                ctypesObj;
+            if (typeof ctypes == "string") {
+                ctypes = ctypes.replace(/'/g, '"');
+                ctypesObj = JSON.parse(ctypes);
+            } else {
+                ctypesObj = ctypes;
+            }
             $(this).trigger(event);
             if (!event.isDefaultPrevented()) {
                 showGenericRelatedObjectLookupPopup(this, ctypesObj);
+                return false;
             }
         });
-    })
+    });
 })(django.jQuery);
