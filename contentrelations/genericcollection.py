@@ -8,8 +8,7 @@ class GenericCollectionInlineModelAdmin(admin.options.InlineModelAdmin):
     ct_field = "content_type"
     ct_fk_field = "object_id"
 
-    def __init__(self, parent_model, admin_site):
-        super(GenericCollectionInlineModelAdmin, self).__init__(parent_model, admin_site)
+    def get_content_types(self):
         ctypes = ContentType.objects.all().order_by('id').values_list('id', 'app_label', 'model')
         elements = {}
         for x, y, z in ctypes:
@@ -21,7 +20,7 @@ class GenericCollectionInlineModelAdmin(admin.options.InlineModelAdmin):
 
     def get_formset(self, request, obj=None, **kwargs):
         result = super(GenericCollectionInlineModelAdmin, self).get_formset(request, obj, **kwargs)
-        result.content_types = self.content_types
+        result.content_types = self.get_content_types()
         result.ct_fk_field = self.ct_fk_field
         return result
 
