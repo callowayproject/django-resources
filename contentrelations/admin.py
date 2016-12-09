@@ -14,9 +14,9 @@ class GenericCollectionInlineModelAdmin(GenericInlineModelAdmin):
     ct_field = "content_type"
     ct_fk_field = "object_id"
 
-    def __init__(self, parent_model, admin_site):
-        super(GenericCollectionInlineModelAdmin, self).__init__(parent_model, admin_site)
+    def get_content_types(self):
         from django.core.urlresolvers import reverse, NoReverseMatch
+        import json
         ctypes = ContentType.objects.all().order_by('id').values_list('id', 'app_label', 'model')
         elements = {}
         for x, y, z in ctypes:
@@ -24,7 +24,7 @@ class GenericCollectionInlineModelAdmin(GenericInlineModelAdmin):
                 elements[x] = reverse("admin:%s_%s_changelist" % (y, z))
             except NoReverseMatch:
                 continue
-        self.content_types = "{%s}" % ",".join(["'%s': '%s'" % (k, v) for k, v in elements.items()])
+        self.content_types = json.dumps(elements)
 
     def get_formset(self, request, obj=None, **kwargs):
         """
@@ -60,7 +60,7 @@ class GenericCollectionInlineModelAdmin(GenericInlineModelAdmin):
         }
         defaults.update(kwargs)
         result = genericm2m_inlineformset_factory(self.parent_model, self.model, **defaults)
-        result.content_types = self.content_types
+        result.content_types = self.get_content_types()
         result.ct_fk_field = self.ct_fk_field
         return result
 
