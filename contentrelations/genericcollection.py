@@ -16,7 +16,7 @@ class GenericCollectionInlineModelAdmin(admin.options.InlineModelAdmin):
                 elements[x] = reverse("admin:%s_%s_changelist" % (y, z))
             except NoReverseMatch:
                 continue
-        self.content_types = json.dumps(elements)
+        return json.dumps(elements)
 
     def get_formset(self, request, obj=None, **kwargs):
         result = super(GenericCollectionInlineModelAdmin, self).get_formset(request, obj, **kwargs)
