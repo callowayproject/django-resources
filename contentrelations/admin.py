@@ -30,10 +30,12 @@ class GenericCollectionInlineModelAdmin(GenericInlineModelAdmin):
         """
         Returns a BaseInlineFormSet class for use in admin add/change views.
         """
-        if self.declared_fieldsets:
+        if hasattr(self, 'declared_fieldsets') and self.declared_fieldsets:
             fields = flatten_fieldsets(self.declared_fieldsets)
+        elif 'fields' in kwargs:
+            fields = kwargs.pop('fields')
         else:
-            fields = None
+            fields = flatten_fieldsets(self.get_fieldsets(request, obj))
         if self.exclude is None:
             exclude = []
         else:
