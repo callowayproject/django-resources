@@ -25,6 +25,7 @@ class GenericCollectionInlineModelAdmin(GenericInlineModelAdmin):
             except NoReverseMatch:
                 continue
         self.content_types = json.dumps(elements)
+        return self.content_types
 
     def get_formset(self, request, obj=None, **kwargs):
         """
