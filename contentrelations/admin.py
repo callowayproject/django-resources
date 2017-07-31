@@ -74,6 +74,8 @@ class GenericCollectionTabularInline(GenericCollectionInlineModelAdmin):
 
 class RelatedInline(GenericCollectionTabularInline):
     model = RelatedResource
+    ct_field = "object_type"
+    ct_fk_field = "object_id"
     exclude = ('source_type', 'source_id')
 
     def get_formset(self, request, obj=None, **kwargs):
